@@ -1,0 +1,952 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DAPMLThuyetModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Account">
+          <Key>
+            <PropertyRef Name="accountID" />
+          </Key>
+          <Property Name="accountID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="username" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="password" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="firstName" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="lastName" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="dateOfBirth" Type="date" />
+          <Property Name="address" Type="nvarchar" MaxLength="255" />
+          <Property Name="email" Type="varchar" MaxLength="255" />
+          <Property Name="phone" Type="varchar" MaxLength="10" />
+          <Property Name="accountTypeID" Type="int" />
+        </EntityType>
+        <EntityType Name="AccountType">
+          <Key>
+            <PropertyRef Name="accountTypeID" />
+          </Key>
+          <Property Name="accountTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="typeName" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Aircraft">
+          <Key>
+            <PropertyRef Name="aircraftID" />
+          </Key>
+          <Property Name="aircraftID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="model" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="capacity" Type="int" Nullable="false" />
+          <Property Name="airlineID" Type="int" />
+        </EntityType>
+        <EntityType Name="Airline">
+          <Key>
+            <PropertyRef Name="airlineID" />
+          </Key>
+          <Property Name="airlineID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="airlineName" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="code" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="logoUrl" Type="nvarchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="Booking">
+          <Key>
+            <PropertyRef Name="bookingID" />
+          </Key>
+          <Property Name="bookingID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="bookingDate" Type="date" Nullable="false" />
+          <Property Name="totalAmount" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="status" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="accountID" Type="int" />
+          <Property Name="flightID" Type="int" />
+        </EntityType>
+        <EntityType Name="BookingHotel">
+          <Key>
+            <PropertyRef Name="IdBookingHotel" />
+          </Key>
+          <Property Name="IdBookingHotel" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="accountID" Type="int" />
+          <Property Name="IdHotel" Type="int" />
+          <Property Name="BookingDate" Type="datetime" />
+          <Property Name="CheckinDate" Type="datetime" />
+          <Property Name="CheckoutDate" Type="datetime" />
+          <Property Name="RoomPrice" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="RoomCount" Type="int" />
+        </EntityType>
+        <EntityType Name="CustomerInfo">
+          <Key>
+            <PropertyRef Name="CustomerInfoID" />
+          </Key>
+          <Property Name="CustomerInfoID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BookingID" Type="int" Nullable="false" />
+          <Property Name="FullName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="PhoneNumber" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="CreatedAt" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Flight">
+          <Key>
+            <PropertyRef Name="flightID" />
+          </Key>
+          <Property Name="flightID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="departureCity" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="arrivalCity" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="departureTime" Type="date" Nullable="false" />
+          <Property Name="flightDuration" Type="time" Precision="7" Nullable="false" />
+          <Property Name="flightPrice" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="aircraftID" Type="int" />
+          <Property Name="airlineID" Type="int" />
+        </EntityType>
+        <EntityType Name="Hotel">
+          <Key>
+            <PropertyRef Name="IdHotel" />
+          </Key>
+          <Property Name="IdHotel" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NameHotel" Type="nvarchar" MaxLength="255" />
+          <Property Name="Address" Type="nvarchar" MaxLength="200" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="50" />
+          <Property Name="StarRange" Type="int" />
+          <Property Name="Decripstion" Type="nvarchar(max)" />
+          <Property Name="Date" Type="date" />
+          <Property Name="Location" Type="nvarchar" MaxLength="100" />
+          <Property Name="RoomPrice" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="RoomCount" Type="int" />
+          <Property Name="depatureTime" Type="datetime" />
+          <Property Name="returnTime" Type="datetime2" Precision="7" />
+          <Property Name="HinhAnh" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="MoMoPayment">
+          <Key>
+            <PropertyRef Name="PaymentID" />
+          </Key>
+          <Property Name="PaymentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PartnerCode" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="AccessKey" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="RequestId" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="OrderId" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Amount" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="OrderInfo" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="RedirectUrl" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="IpnUrl" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="RequestType" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Signature" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Status" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CreatedAt" Type="datetime" />
+          <Property Name="bookingID" Type="int" />
+        </EntityType>
+        <EntityType Name="Payment">
+          <Key>
+            <PropertyRef Name="paymentID" />
+          </Key>
+          <Property Name="paymentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="amount" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="paymentDate" Type="date" Nullable="false" />
+          <Property Name="paymentMethod" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="status" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="bookingID" Type="int" />
+        </EntityType>
+        <Association Name="FK__Account__account__4E88ABD4">
+          <End Role="AccountType" Type="Self.AccountType" Multiplicity="0..1" />
+          <End Role="Account" Type="Self.Account" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AccountType">
+              <PropertyRef Name="accountTypeID" />
+            </Principal>
+            <Dependent Role="Account">
+              <PropertyRef Name="accountTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Aircraft__airlin__4F7CD00D">
+          <End Role="Airline" Type="Self.Airline" Multiplicity="0..1" />
+          <End Role="Aircraft" Type="Self.Aircraft" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Airline">
+              <PropertyRef Name="airlineID" />
+            </Principal>
+            <Dependent Role="Aircraft">
+              <PropertyRef Name="airlineID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Booking__account__5070F446">
+          <End Role="Account" Type="Self.Account" Multiplicity="0..1" />
+          <End Role="Booking" Type="Self.Booking" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="accountID" />
+            </Principal>
+            <Dependent Role="Booking">
+              <PropertyRef Name="accountID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Booking__flightI__5165187F">
+          <End Role="Flight" Type="Self.Flight" Multiplicity="0..1" />
+          <End Role="Booking" Type="Self.Booking" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Flight">
+              <PropertyRef Name="flightID" />
+            </Principal>
+            <Dependent Role="Booking">
+              <PropertyRef Name="flightID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__BookingHo__accou__52593CB8">
+          <End Role="Account" Type="Self.Account" Multiplicity="0..1" />
+          <End Role="BookingHotel" Type="Self.BookingHotel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="accountID" />
+            </Principal>
+            <Dependent Role="BookingHotel">
+              <PropertyRef Name="accountID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__BookingHo__IdHot__534D60F1">
+          <End Role="Hotel" Type="Self.Hotel" Multiplicity="0..1" />
+          <End Role="BookingHotel" Type="Self.BookingHotel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Hotel">
+              <PropertyRef Name="IdHotel" />
+            </Principal>
+            <Dependent Role="BookingHotel">
+              <PropertyRef Name="IdHotel" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__CustomerI__Booki__5441852A">
+          <End Role="Booking" Type="Self.Booking" Multiplicity="1" />
+          <End Role="CustomerInfo" Type="Self.CustomerInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Booking">
+              <PropertyRef Name="bookingID" />
+            </Principal>
+            <Dependent Role="CustomerInfo">
+              <PropertyRef Name="BookingID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Flight__aircraft__5535A963">
+          <End Role="Aircraft" Type="Self.Aircraft" Multiplicity="0..1" />
+          <End Role="Flight" Type="Self.Flight" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Aircraft">
+              <PropertyRef Name="aircraftID" />
+            </Principal>
+            <Dependent Role="Flight">
+              <PropertyRef Name="aircraftID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Flight__airlineI__5629CD9C">
+          <End Role="Airline" Type="Self.Airline" Multiplicity="0..1" />
+          <End Role="Flight" Type="Self.Flight" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Airline">
+              <PropertyRef Name="airlineID" />
+            </Principal>
+            <Dependent Role="Flight">
+              <PropertyRef Name="airlineID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__MoMoPayme__booki__571DF1D5">
+          <End Role="Booking" Type="Self.Booking" Multiplicity="0..1" />
+          <End Role="MoMoPayment" Type="Self.MoMoPayment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Booking">
+              <PropertyRef Name="bookingID" />
+            </Principal>
+            <Dependent Role="MoMoPayment">
+              <PropertyRef Name="bookingID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Payment__booking__5812160E">
+          <End Role="Booking" Type="Self.Booking" Multiplicity="0..1" />
+          <End Role="Payment" Type="Self.Payment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Booking">
+              <PropertyRef Name="bookingID" />
+            </Principal>
+            <Dependent Role="Payment">
+              <PropertyRef Name="bookingID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="TTChuyenBay" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="TTKhachSan" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="TTTaiKhoan" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <EntityContainer Name="DAPMLThuyetModelStoreContainer">
+          <EntitySet Name="Account" EntityType="Self.Account" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AccountType" EntityType="Self.AccountType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Aircraft" EntityType="Self.Aircraft" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Airline" EntityType="Self.Airline" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Booking" EntityType="Self.Booking" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BookingHotel" EntityType="Self.BookingHotel" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CustomerInfo" EntityType="Self.CustomerInfo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Flight" EntityType="Self.Flight" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Hotel" EntityType="Self.Hotel" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MoMoPayment" EntityType="Self.MoMoPayment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Payment" EntityType="Self.Payment" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Account__account__4E88ABD4" Association="Self.FK__Account__account__4E88ABD4">
+            <End Role="AccountType" EntitySet="AccountType" />
+            <End Role="Account" EntitySet="Account" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Aircraft__airlin__4F7CD00D" Association="Self.FK__Aircraft__airlin__4F7CD00D">
+            <End Role="Airline" EntitySet="Airline" />
+            <End Role="Aircraft" EntitySet="Aircraft" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Booking__account__5070F446" Association="Self.FK__Booking__account__5070F446">
+            <End Role="Account" EntitySet="Account" />
+            <End Role="Booking" EntitySet="Booking" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Booking__flightI__5165187F" Association="Self.FK__Booking__flightI__5165187F">
+            <End Role="Flight" EntitySet="Flight" />
+            <End Role="Booking" EntitySet="Booking" />
+          </AssociationSet>
+          <AssociationSet Name="FK__BookingHo__accou__52593CB8" Association="Self.FK__BookingHo__accou__52593CB8">
+            <End Role="Account" EntitySet="Account" />
+            <End Role="BookingHotel" EntitySet="BookingHotel" />
+          </AssociationSet>
+          <AssociationSet Name="FK__BookingHo__IdHot__534D60F1" Association="Self.FK__BookingHo__IdHot__534D60F1">
+            <End Role="Hotel" EntitySet="Hotel" />
+            <End Role="BookingHotel" EntitySet="BookingHotel" />
+          </AssociationSet>
+          <AssociationSet Name="FK__CustomerI__Booki__5441852A" Association="Self.FK__CustomerI__Booki__5441852A">
+            <End Role="Booking" EntitySet="Booking" />
+            <End Role="CustomerInfo" EntitySet="CustomerInfo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Flight__aircraft__5535A963" Association="Self.FK__Flight__aircraft__5535A963">
+            <End Role="Aircraft" EntitySet="Aircraft" />
+            <End Role="Flight" EntitySet="Flight" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Flight__airlineI__5629CD9C" Association="Self.FK__Flight__airlineI__5629CD9C">
+            <End Role="Airline" EntitySet="Airline" />
+            <End Role="Flight" EntitySet="Flight" />
+          </AssociationSet>
+          <AssociationSet Name="FK__MoMoPayme__booki__571DF1D5" Association="Self.FK__MoMoPayme__booki__571DF1D5">
+            <End Role="Booking" EntitySet="Booking" />
+            <End Role="MoMoPayment" EntitySet="MoMoPayment" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Payment__booking__5812160E" Association="Self.FK__Payment__booking__5812160E">
+            <End Role="Booking" EntitySet="Booking" />
+            <End Role="Payment" EntitySet="Payment" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DAPMLThuyetModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Account">
+          <Key>
+            <PropertyRef Name="accountID" />
+          </Key>
+          <Property Name="accountID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="username" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="password" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="firstName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="lastName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="dateOfBirth" Type="DateTime" Precision="0" />
+          <Property Name="address" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="phone" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="accountTypeID" Type="Int32" />
+          <NavigationProperty Name="AccountType" Relationship="Self.FK__Account__account__4E88ABD4" FromRole="Account" ToRole="AccountType" />
+          <NavigationProperty Name="Bookings" Relationship="Self.FK__Booking__account__5070F446" FromRole="Account" ToRole="Booking" />
+          <NavigationProperty Name="BookingHotels" Relationship="Self.FK__BookingHo__accou__52593CB8" FromRole="Account" ToRole="BookingHotel" />
+        </EntityType>
+        <EntityType Name="AccountType">
+          <Key>
+            <PropertyRef Name="accountTypeID" />
+          </Key>
+          <Property Name="accountTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="typeName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Accounts" Relationship="Self.FK__Account__account__4E88ABD4" FromRole="AccountType" ToRole="Account" />
+        </EntityType>
+        <EntityType Name="Aircraft">
+          <Key>
+            <PropertyRef Name="aircraftID" />
+          </Key>
+          <Property Name="aircraftID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="model" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="capacity" Type="Int32" Nullable="false" />
+          <Property Name="airlineID" Type="Int32" />
+          <NavigationProperty Name="Airline" Relationship="Self.FK__Aircraft__airlin__4F7CD00D" FromRole="Aircraft" ToRole="Airline" />
+          <NavigationProperty Name="Flights" Relationship="Self.FK__Flight__aircraft__5535A963" FromRole="Aircraft" ToRole="Flight" />
+        </EntityType>
+        <EntityType Name="Airline">
+          <Key>
+            <PropertyRef Name="airlineID" />
+          </Key>
+          <Property Name="airlineID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="airlineName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="code" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Aircraft" Relationship="Self.FK__Aircraft__airlin__4F7CD00D" FromRole="Airline" ToRole="Aircraft" />
+          <NavigationProperty Name="Flights" Relationship="Self.FK__Flight__airlineI__5629CD9C" FromRole="Airline" ToRole="Flight" />
+          <Property Name="logoUrl" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Booking">
+          <Key>
+            <PropertyRef Name="bookingID" />
+          </Key>
+          <Property Name="bookingID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="bookingDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="totalAmount" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="accountID" Type="Int32" />
+          <Property Name="flightID" Type="Int32" />
+          <NavigationProperty Name="Account" Relationship="Self.FK__Booking__account__5070F446" FromRole="Booking" ToRole="Account" />
+          <NavigationProperty Name="Flight" Relationship="Self.FK__Booking__flightI__5165187F" FromRole="Booking" ToRole="Flight" />
+          <NavigationProperty Name="CustomerInfoes" Relationship="Self.FK__CustomerI__Booki__5441852A" FromRole="Booking" ToRole="CustomerInfo" />
+          <NavigationProperty Name="MoMoPayments" Relationship="Self.FK__MoMoPayme__booki__571DF1D5" FromRole="Booking" ToRole="MoMoPayment" />
+          <NavigationProperty Name="Payments" Relationship="Self.FK__Payment__booking__5812160E" FromRole="Booking" ToRole="Payment" />
+        </EntityType>
+        <EntityType Name="BookingHotel">
+          <Key>
+            <PropertyRef Name="IdBookingHotel" />
+          </Key>
+          <Property Name="IdBookingHotel" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="accountID" Type="Int32" />
+          <Property Name="IdHotel" Type="Int32" />
+          <Property Name="BookingDate" Type="DateTime" Precision="3" />
+          <Property Name="CheckinDate" Type="DateTime" Precision="3" />
+          <Property Name="CheckoutDate" Type="DateTime" Precision="3" />
+          <Property Name="RoomPrice" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="RoomCount" Type="Int32" />
+          <NavigationProperty Name="Account" Relationship="Self.FK__BookingHo__accou__52593CB8" FromRole="BookingHotel" ToRole="Account" />
+          <NavigationProperty Name="Hotel" Relationship="Self.FK__BookingHo__IdHot__534D60F1" FromRole="BookingHotel" ToRole="Hotel" />
+        </EntityType>
+        <EntityType Name="CustomerInfo">
+          <Key>
+            <PropertyRef Name="CustomerInfoID" />
+          </Key>
+          <Property Name="CustomerInfoID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BookingID" Type="Int32" Nullable="false" />
+          <Property Name="FullName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreatedAt" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Booking" Relationship="Self.FK__CustomerI__Booki__5441852A" FromRole="CustomerInfo" ToRole="Booking" />
+        </EntityType>
+        <EntityType Name="Flight">
+          <Key>
+            <PropertyRef Name="flightID" />
+          </Key>
+          <Property Name="flightID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="departureCity" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="arrivalCity" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="departureTime" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="flightDuration" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="flightPrice" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="aircraftID" Type="Int32" />
+          <Property Name="airlineID" Type="Int32" />
+          <NavigationProperty Name="Aircraft" Relationship="Self.FK__Flight__aircraft__5535A963" FromRole="Flight" ToRole="Aircraft" />
+          <NavigationProperty Name="Airline" Relationship="Self.FK__Flight__airlineI__5629CD9C" FromRole="Flight" ToRole="Airline" />
+          <NavigationProperty Name="Bookings" Relationship="Self.FK__Booking__flightI__5165187F" FromRole="Flight" ToRole="Booking" />
+        </EntityType>
+        <EntityType Name="Hotel">
+          <Key>
+            <PropertyRef Name="IdHotel" />
+          </Key>
+          <Property Name="IdHotel" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NameHotel" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="StarRange" Type="Int32" />
+          <Property Name="Decripstion" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Date" Type="DateTime" Precision="0" />
+          <Property Name="Location" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="RoomPrice" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="RoomCount" Type="Int32" />
+          <Property Name="depatureTime" Type="DateTime" Precision="3" />
+          <Property Name="returnTime" Type="DateTime" Precision="7" />
+          <Property Name="HinhAnh" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="BookingHotels" Relationship="Self.FK__BookingHo__IdHot__534D60F1" FromRole="Hotel" ToRole="BookingHotel" />
+        </EntityType>
+        <EntityType Name="MoMoPayment">
+          <Key>
+            <PropertyRef Name="PaymentID" />
+          </Key>
+          <Property Name="PaymentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PartnerCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="AccessKey" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="RequestId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="OrderId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Amount" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="OrderInfo" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="RedirectUrl" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IpnUrl" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="RequestType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Signature" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreatedAt" Type="DateTime" Precision="3" />
+          <Property Name="bookingID" Type="Int32" />
+          <NavigationProperty Name="Booking" Relationship="Self.FK__MoMoPayme__booki__571DF1D5" FromRole="MoMoPayment" ToRole="Booking" />
+        </EntityType>
+        <EntityType Name="Payment">
+          <Key>
+            <PropertyRef Name="paymentID" />
+          </Key>
+          <Property Name="paymentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="amount" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="paymentDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="paymentMethod" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="bookingID" Type="Int32" />
+          <NavigationProperty Name="Booking" Relationship="Self.FK__Payment__booking__5812160E" FromRole="Payment" ToRole="Booking" />
+        </EntityType>
+        <Association Name="FK__Account__account__4E88ABD4">
+          <End Role="AccountType" Type="Self.AccountType" Multiplicity="0..1" />
+          <End Role="Account" Type="Self.Account" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AccountType">
+              <PropertyRef Name="accountTypeID" />
+            </Principal>
+            <Dependent Role="Account">
+              <PropertyRef Name="accountTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Booking__account__5070F446">
+          <End Role="Account" Type="Self.Account" Multiplicity="0..1" />
+          <End Role="Booking" Type="Self.Booking" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="accountID" />
+            </Principal>
+            <Dependent Role="Booking">
+              <PropertyRef Name="accountID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__BookingHo__accou__52593CB8">
+          <End Role="Account" Type="Self.Account" Multiplicity="0..1" />
+          <End Role="BookingHotel" Type="Self.BookingHotel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="accountID" />
+            </Principal>
+            <Dependent Role="BookingHotel">
+              <PropertyRef Name="accountID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Aircraft__airlin__4F7CD00D">
+          <End Role="Airline" Type="Self.Airline" Multiplicity="0..1" />
+          <End Role="Aircraft" Type="Self.Aircraft" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Airline">
+              <PropertyRef Name="airlineID" />
+            </Principal>
+            <Dependent Role="Aircraft">
+              <PropertyRef Name="airlineID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Flight__aircraft__5535A963">
+          <End Role="Aircraft" Type="Self.Aircraft" Multiplicity="0..1" />
+          <End Role="Flight" Type="Self.Flight" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Aircraft">
+              <PropertyRef Name="aircraftID" />
+            </Principal>
+            <Dependent Role="Flight">
+              <PropertyRef Name="aircraftID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Flight__airlineI__5629CD9C">
+          <End Role="Airline" Type="Self.Airline" Multiplicity="0..1" />
+          <End Role="Flight" Type="Self.Flight" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Airline">
+              <PropertyRef Name="airlineID" />
+            </Principal>
+            <Dependent Role="Flight">
+              <PropertyRef Name="airlineID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Booking__flightI__5165187F">
+          <End Role="Flight" Type="Self.Flight" Multiplicity="0..1" />
+          <End Role="Booking" Type="Self.Booking" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Flight">
+              <PropertyRef Name="flightID" />
+            </Principal>
+            <Dependent Role="Booking">
+              <PropertyRef Name="flightID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__CustomerI__Booki__5441852A">
+          <End Role="Booking" Type="Self.Booking" Multiplicity="1" />
+          <End Role="CustomerInfo" Type="Self.CustomerInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Booking">
+              <PropertyRef Name="bookingID" />
+            </Principal>
+            <Dependent Role="CustomerInfo">
+              <PropertyRef Name="BookingID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__MoMoPayme__booki__571DF1D5">
+          <End Role="Booking" Type="Self.Booking" Multiplicity="0..1" />
+          <End Role="MoMoPayment" Type="Self.MoMoPayment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Booking">
+              <PropertyRef Name="bookingID" />
+            </Principal>
+            <Dependent Role="MoMoPayment">
+              <PropertyRef Name="bookingID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Payment__booking__5812160E">
+          <End Role="Booking" Type="Self.Booking" Multiplicity="0..1" />
+          <End Role="Payment" Type="Self.Payment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Booking">
+              <PropertyRef Name="bookingID" />
+            </Principal>
+            <Dependent Role="Payment">
+              <PropertyRef Name="bookingID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__BookingHo__IdHot__534D60F1">
+          <End Role="Hotel" Type="Self.Hotel" Multiplicity="0..1" />
+          <End Role="BookingHotel" Type="Self.BookingHotel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Hotel">
+              <PropertyRef Name="IdHotel" />
+            </Principal>
+            <Dependent Role="BookingHotel">
+              <PropertyRef Name="IdHotel" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DAPMLThuyetEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Accounts" EntityType="Self.Account" />
+          <EntitySet Name="AccountTypes" EntityType="Self.AccountType" />
+          <EntitySet Name="Aircraft" EntityType="Self.Aircraft" />
+          <EntitySet Name="Airlines" EntityType="Self.Airline" />
+          <EntitySet Name="Bookings" EntityType="Self.Booking" />
+          <EntitySet Name="BookingHotels" EntityType="Self.BookingHotel" />
+          <EntitySet Name="CustomerInfoes" EntityType="Self.CustomerInfo" />
+          <EntitySet Name="Flights" EntityType="Self.Flight" />
+          <EntitySet Name="Hotels" EntityType="Self.Hotel" />
+          <EntitySet Name="MoMoPayments" EntityType="Self.MoMoPayment" />
+          <EntitySet Name="Payments" EntityType="Self.Payment" />
+          <AssociationSet Name="FK__Account__account__4E88ABD4" Association="Self.FK__Account__account__4E88ABD4">
+            <End Role="AccountType" EntitySet="AccountTypes" />
+            <End Role="Account" EntitySet="Accounts" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Booking__account__5070F446" Association="Self.FK__Booking__account__5070F446">
+            <End Role="Account" EntitySet="Accounts" />
+            <End Role="Booking" EntitySet="Bookings" />
+          </AssociationSet>
+          <AssociationSet Name="FK__BookingHo__accou__52593CB8" Association="Self.FK__BookingHo__accou__52593CB8">
+            <End Role="Account" EntitySet="Accounts" />
+            <End Role="BookingHotel" EntitySet="BookingHotels" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Aircraft__airlin__4F7CD00D" Association="Self.FK__Aircraft__airlin__4F7CD00D">
+            <End Role="Airline" EntitySet="Airlines" />
+            <End Role="Aircraft" EntitySet="Aircraft" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Flight__aircraft__5535A963" Association="Self.FK__Flight__aircraft__5535A963">
+            <End Role="Aircraft" EntitySet="Aircraft" />
+            <End Role="Flight" EntitySet="Flights" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Flight__airlineI__5629CD9C" Association="Self.FK__Flight__airlineI__5629CD9C">
+            <End Role="Airline" EntitySet="Airlines" />
+            <End Role="Flight" EntitySet="Flights" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Booking__flightI__5165187F" Association="Self.FK__Booking__flightI__5165187F">
+            <End Role="Flight" EntitySet="Flights" />
+            <End Role="Booking" EntitySet="Bookings" />
+          </AssociationSet>
+          <AssociationSet Name="FK__CustomerI__Booki__5441852A" Association="Self.FK__CustomerI__Booki__5441852A">
+            <End Role="Booking" EntitySet="Bookings" />
+            <End Role="CustomerInfo" EntitySet="CustomerInfoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__MoMoPayme__booki__571DF1D5" Association="Self.FK__MoMoPayme__booki__571DF1D5">
+            <End Role="Booking" EntitySet="Bookings" />
+            <End Role="MoMoPayment" EntitySet="MoMoPayments" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Payment__booking__5812160E" Association="Self.FK__Payment__booking__5812160E">
+            <End Role="Booking" EntitySet="Bookings" />
+            <End Role="Payment" EntitySet="Payments" />
+          </AssociationSet>
+          <AssociationSet Name="FK__BookingHo__IdHot__534D60F1" Association="Self.FK__BookingHo__IdHot__534D60F1">
+            <End Role="Hotel" EntitySet="Hotels" />
+            <End Role="BookingHotel" EntitySet="BookingHotels" />
+          </AssociationSet>
+          <FunctionImport Name="TTChuyenBay" ReturnType="Collection(DAPMLThuyetModel.TTChuyenBay_Result)" />
+          <FunctionImport Name="TTKhachSan" ReturnType="Collection(DAPMLThuyetModel.TTKhachSan_Result)" />
+          <FunctionImport Name="TTTaiKhoan" ReturnType="Collection(DAPMLThuyetModel.TTTaiKhoan_Result)" />
+        </EntityContainer>
+        <ComplexType Name="TTChuyenBay_Result">
+          <Property Type="Int32" Name="FlightID" Nullable="false" />
+          <Property Type="String" Name="DepartureCity" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="ArrivalCity" Nullable="false" MaxLength="255" />
+          <Property Type="DateTime" Name="DepartureTime" Nullable="false" />
+          <Property Type="Time" Name="FlightDuration" Nullable="false" />
+          <Property Type="Decimal" Name="FlightPrice" Nullable="false" Precision="10" Scale="2" />
+          <Property Type="String" Name="AircraftModel" Nullable="true" MaxLength="255" />
+          <Property Type="Int32" Name="AircraftCapacity" Nullable="true" />
+          <Property Type="String" Name="AirlineName" Nullable="true" MaxLength="255" />
+        </ComplexType>
+        <ComplexType Name="TTKhachSan_Result">
+          <Property Type="Int32" Name="HotelID" Nullable="false" />
+          <Property Type="String" Name="HotelName" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="Address" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="Phone" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="StarRating" Nullable="true" />
+          <Property Type="String" Name="Description" Nullable="true" />
+          <Property Type="DateTime" Name="CreatedDate" Nullable="true" />
+          <Property Type="String" Name="Location" Nullable="true" MaxLength="100" />
+          <Property Type="Decimal" Name="RoomPrice" Nullable="true" Precision="10" Scale="2" />
+          <Property Type="Int32" Name="RoomCount" Nullable="true" />
+          <Property Type="DateTime" Name="DepartureTime" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="ReturnTime" Nullable="true" />
+          <Property Type="String" Name="Image" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="TTTaiKhoan_Result">
+          <Property Type="Int32" Name="AccountID" Nullable="false" />
+          <Property Type="String" Name="Username" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="FirstName" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="LastName" Nullable="false" MaxLength="255" />
+          <Property Type="DateTime" Name="DateOfBirth" Nullable="true" />
+          <Property Type="String" Name="Address" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="Email" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="Phone" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="AccountType" Nullable="true" MaxLength="255" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DAPMLThuyetModelStoreContainer" CdmEntityContainer="DAPMLThuyetEntities">
+          <EntitySetMapping Name="Accounts">
+            <EntityTypeMapping TypeName="DAPMLThuyetModel.Account">
+              <MappingFragment StoreEntitySet="Account">
+                <ScalarProperty Name="accountID" ColumnName="accountID" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="firstName" ColumnName="firstName" />
+                <ScalarProperty Name="lastName" ColumnName="lastName" />
+                <ScalarProperty Name="dateOfBirth" ColumnName="dateOfBirth" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="accountTypeID" ColumnName="accountTypeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AccountTypes">
+            <EntityTypeMapping TypeName="DAPMLThuyetModel.AccountType">
+              <MappingFragment StoreEntitySet="AccountType">
+                <ScalarProperty Name="accountTypeID" ColumnName="accountTypeID" />
+                <ScalarProperty Name="typeName" ColumnName="typeName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Aircraft">
+            <EntityTypeMapping TypeName="DAPMLThuyetModel.Aircraft">
+              <MappingFragment StoreEntitySet="Aircraft">
+                <ScalarProperty Name="aircraftID" ColumnName="aircraftID" />
+                <ScalarProperty Name="model" ColumnName="model" />
+                <ScalarProperty Name="capacity" ColumnName="capacity" />
+                <ScalarProperty Name="airlineID" ColumnName="airlineID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Airlines">
+            <EntityTypeMapping TypeName="DAPMLThuyetModel.Airline">
+              <MappingFragment StoreEntitySet="Airline">
+                <ScalarProperty Name="logoUrl" ColumnName="logoUrl" />
+                <ScalarProperty Name="airlineID" ColumnName="airlineID" />
+                <ScalarProperty Name="airlineName" ColumnName="airlineName" />
+                <ScalarProperty Name="code" ColumnName="code" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Bookings">
+            <EntityTypeMapping TypeName="DAPMLThuyetModel.Booking">
+              <MappingFragment StoreEntitySet="Booking">
+                <ScalarProperty Name="bookingID" ColumnName="bookingID" />
+                <ScalarProperty Name="bookingDate" ColumnName="bookingDate" />
+                <ScalarProperty Name="totalAmount" ColumnName="totalAmount" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="accountID" ColumnName="accountID" />
+                <ScalarProperty Name="flightID" ColumnName="flightID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BookingHotels">
+            <EntityTypeMapping TypeName="DAPMLThuyetModel.BookingHotel">
+              <MappingFragment StoreEntitySet="BookingHotel">
+                <ScalarProperty Name="IdBookingHotel" ColumnName="IdBookingHotel" />
+                <ScalarProperty Name="accountID" ColumnName="accountID" />
+                <ScalarProperty Name="IdHotel" ColumnName="IdHotel" />
+                <ScalarProperty Name="BookingDate" ColumnName="BookingDate" />
+                <ScalarProperty Name="CheckinDate" ColumnName="CheckinDate" />
+                <ScalarProperty Name="CheckoutDate" ColumnName="CheckoutDate" />
+                <ScalarProperty Name="RoomPrice" ColumnName="RoomPrice" />
+                <ScalarProperty Name="RoomCount" ColumnName="RoomCount" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CustomerInfoes">
+            <EntityTypeMapping TypeName="DAPMLThuyetModel.CustomerInfo">
+              <MappingFragment StoreEntitySet="CustomerInfo">
+                <ScalarProperty Name="CustomerInfoID" ColumnName="CustomerInfoID" />
+                <ScalarProperty Name="BookingID" ColumnName="BookingID" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Flights">
+            <EntityTypeMapping TypeName="DAPMLThuyetModel.Flight">
+              <MappingFragment StoreEntitySet="Flight">
+                <ScalarProperty Name="flightID" ColumnName="flightID" />
+                <ScalarProperty Name="departureCity" ColumnName="departureCity" />
+                <ScalarProperty Name="arrivalCity" ColumnName="arrivalCity" />
+                <ScalarProperty Name="departureTime" ColumnName="departureTime" />
+                <ScalarProperty Name="flightDuration" ColumnName="flightDuration" />
+                <ScalarProperty Name="flightPrice" ColumnName="flightPrice" />
+                <ScalarProperty Name="aircraftID" ColumnName="aircraftID" />
+                <ScalarProperty Name="airlineID" ColumnName="airlineID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Hotels">
+            <EntityTypeMapping TypeName="DAPMLThuyetModel.Hotel">
+              <MappingFragment StoreEntitySet="Hotel">
+                <ScalarProperty Name="IdHotel" ColumnName="IdHotel" />
+                <ScalarProperty Name="NameHotel" ColumnName="NameHotel" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="StarRange" ColumnName="StarRange" />
+                <ScalarProperty Name="Decripstion" ColumnName="Decripstion" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Location" ColumnName="Location" />
+                <ScalarProperty Name="RoomPrice" ColumnName="RoomPrice" />
+                <ScalarProperty Name="RoomCount" ColumnName="RoomCount" />
+                <ScalarProperty Name="depatureTime" ColumnName="depatureTime" />
+                <ScalarProperty Name="returnTime" ColumnName="returnTime" />
+                <ScalarProperty Name="HinhAnh" ColumnName="HinhAnh" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MoMoPayments">
+            <EntityTypeMapping TypeName="DAPMLThuyetModel.MoMoPayment">
+              <MappingFragment StoreEntitySet="MoMoPayment">
+                <ScalarProperty Name="PaymentID" ColumnName="PaymentID" />
+                <ScalarProperty Name="PartnerCode" ColumnName="PartnerCode" />
+                <ScalarProperty Name="AccessKey" ColumnName="AccessKey" />
+                <ScalarProperty Name="RequestId" ColumnName="RequestId" />
+                <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="OrderInfo" ColumnName="OrderInfo" />
+                <ScalarProperty Name="RedirectUrl" ColumnName="RedirectUrl" />
+                <ScalarProperty Name="IpnUrl" ColumnName="IpnUrl" />
+                <ScalarProperty Name="RequestType" ColumnName="RequestType" />
+                <ScalarProperty Name="Signature" ColumnName="Signature" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+                <ScalarProperty Name="bookingID" ColumnName="bookingID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Payments">
+            <EntityTypeMapping TypeName="DAPMLThuyetModel.Payment">
+              <MappingFragment StoreEntitySet="Payment">
+                <ScalarProperty Name="paymentID" ColumnName="paymentID" />
+                <ScalarProperty Name="amount" ColumnName="amount" />
+                <ScalarProperty Name="paymentDate" ColumnName="paymentDate" />
+                <ScalarProperty Name="paymentMethod" ColumnName="paymentMethod" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="bookingID" ColumnName="bookingID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="TTChuyenBay" FunctionName="DAPMLThuyetModel.Store.TTChuyenBay">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DAPMLThuyetModel.TTChuyenBay_Result">
+                <ScalarProperty Name="FlightID" ColumnName="FlightID" />
+                <ScalarProperty Name="DepartureCity" ColumnName="DepartureCity" />
+                <ScalarProperty Name="ArrivalCity" ColumnName="ArrivalCity" />
+                <ScalarProperty Name="DepartureTime" ColumnName="DepartureTime" />
+                <ScalarProperty Name="FlightDuration" ColumnName="FlightDuration" />
+                <ScalarProperty Name="FlightPrice" ColumnName="FlightPrice" />
+                <ScalarProperty Name="AircraftModel" ColumnName="AircraftModel" />
+                <ScalarProperty Name="AircraftCapacity" ColumnName="AircraftCapacity" />
+                <ScalarProperty Name="AirlineName" ColumnName="AirlineName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="TTKhachSan" FunctionName="DAPMLThuyetModel.Store.TTKhachSan">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DAPMLThuyetModel.TTKhachSan_Result">
+                <ScalarProperty Name="HotelID" ColumnName="HotelID" />
+                <ScalarProperty Name="HotelName" ColumnName="HotelName" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="StarRating" ColumnName="StarRating" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="Location" ColumnName="Location" />
+                <ScalarProperty Name="RoomPrice" ColumnName="RoomPrice" />
+                <ScalarProperty Name="RoomCount" ColumnName="RoomCount" />
+                <ScalarProperty Name="DepartureTime" ColumnName="DepartureTime" />
+                <ScalarProperty Name="ReturnTime" ColumnName="ReturnTime" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="TTTaiKhoan" FunctionName="DAPMLThuyetModel.Store.TTTaiKhoan">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DAPMLThuyetModel.TTTaiKhoan_Result">
+                <ScalarProperty Name="AccountID" ColumnName="AccountID" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="AccountType" ColumnName="AccountType" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

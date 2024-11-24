@@ -1,0 +1,119 @@
+﻿@model FlightManagement.Models.Airline
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@using (Html.BeginForm("Edit", "Airlines", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="container mt-4">
+        <div class="info-box">
+            <h4 class="text-center text-primary">Chỉnh Sửa Hãng Hàng Không</h4>
+            <hr />
+
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            <!-- Hidden field for airlineID -->
+            @Html.HiddenFor(model => model.airlineID)
+
+            <!-- Airline Name Input -->
+            <div class="form-group row">
+                @Html.LabelFor(model => model.airlineName, "Tên Hãng", htmlAttributes: new { @class = "control-label col-sm-3" })
+                <div class="col-sm-9">
+                    @Html.EditorFor(model => model.airlineName, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.airlineName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <!-- Airline Code Input -->
+            <div class="form-group row">
+                @Html.LabelFor(model => model.code, "Code", htmlAttributes: new { @class = "control-label col-sm-3" })
+                <div class="col-sm-9">
+                    @Html.EditorFor(model => model.code, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.code, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <!-- Logo URL Input -->
+            <div class="form-group row">
+                @Html.LabelFor(model => model.logoUrl, "Nhập Url Logo", htmlAttributes: new { @class = "control-label col-sm-3" })
+                <div class="col-sm-9">
+                    @Html.EditorFor(model => model.logoUrl, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.logoUrl, "", new { @class = "text-danger" })
+                </div>
+                <div>Hoặc chọn File</div>
+                <input type="file" id="logoUrl" name="logoUrl" class="form-control" accept="image/*" />
+            </div>
+
+            <!-- Submit and Cancel Buttons -->
+            <div class="form-group row text-center">
+                <div class="col-sm-12">
+                    <input type="submit" value="Lưu" class="btn btn-primary btn-sm" />
+                    <a class="btn btn-danger btn-sm" href="/Airlines/Index">Quay lại</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        /* Khung thông tin */
+        .info-box {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            max-width: 600px;
+            margin: 0 auto; /* Căn giữa */
+        }
+
+            /* Tiêu đề */
+            .info-box h4 {
+                color: #007bff;
+                font-size: 1.5rem;
+                font-weight: bold;
+                margin-bottom: 15px;
+            }
+
+        /* Thẻ label cho form */
+        .control-label {
+            font-weight: bold;
+            color: #333;
+        }
+
+        /* Các trường nhập liệu */
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        /* Các ô nhập liệu */
+        .form-control {
+            font-size: 1rem;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+
+        /* Nút Submit và Quay lại */
+        .btn-sm {
+            padding: 6px 12px;
+            font-size: 0.9rem; /* Giảm kích thước nút */
+        }
+
+        .btn-primary {
+            margin-right: 10px;
+        }
+
+        /* Thông báo lỗi */
+        .text-danger {
+            font-size: 0.9rem;
+        }
+    </style>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

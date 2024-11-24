@@ -1,0 +1,164 @@
+﻿@model FlightManagement.Models.Flight
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@using (Html.BeginForm("Create", "Flights", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="container mt-4">
+        <div class="card">
+            <div class="card-header bg-primary text-white text-center">
+                <h4>Thêm mới Chuyến Bay</h4>
+            </div>
+            <div class="card-body">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                <!-- Điểm đi -->
+                <div class="form-group row">
+                    @Html.LabelFor(model => model.departureCity, "Điểm đi", htmlAttributes: new { @class = "col-sm-2 col-form-label" })
+                    <div class="col-sm-10">
+                        @Html.EditorFor(model => model.departureCity, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.departureCity, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <!-- Điểm đến -->
+                <div class="form-group row">
+                    @Html.LabelFor(model => model.arrivalCity, "Điểm đến", htmlAttributes: new { @class = "col-sm-2 col-form-label" })
+                    <div class="col-sm-10">
+                        @Html.EditorFor(model => model.arrivalCity, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.arrivalCity, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <!-- Ngày đi -->
+                <div class="form-group row">
+                    @Html.LabelFor(model => model.departureTime, "Ngày đi", htmlAttributes: new { @class = "col-sm-2 col-form-label" })
+                    <div class="col-sm-10">
+                        @Html.EditorFor(model => model.departureTime, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.departureTime, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <!-- Tổng giờ đi -->
+                <div class="form-group row">
+                    @Html.LabelFor(model => model.flightDuration, "Tổng giờ đi", htmlAttributes: new { @class = "col-sm-2 col-form-label" })
+                    <div class="col-sm-10">
+                        @Html.EditorFor(model => model.flightDuration, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.flightDuration, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <!-- Giá -->
+                <div class="form-group row">
+                    @Html.LabelFor(model => model.flightPrice, "Giá", htmlAttributes: new { @class = "col-sm-2 col-form-label" })
+                    <div class="col-sm-10">
+                        @Html.EditorFor(model => model.flightPrice, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.flightPrice, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <!-- Loại máy bay -->
+                <div class="form-group row">
+                    @Html.LabelFor(model => model.aircraftID, "Loại máy bay", htmlAttributes: new { @class = "col-sm-2 col-form-label" })
+                    <div class="col-sm-10">
+                        @Html.DropDownList("aircraftID", null, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.aircraftID, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <!-- Hãng bay -->
+                <div class="form-group row">
+                    @Html.LabelFor(model => model.airlineID, "Hãng bay", htmlAttributes: new { @class = "col-sm-2 col-form-label" })
+                    <div class="col-sm-10">
+                        @Html.DropDownList("airlineID", null, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.airlineID, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <!-- Nút Submit -->
+                <div class="form-group row">
+                    <div class="col-sm-12">
+                        <input type="submit" value="Thêm chuyến bay" class="btn btn-success" />
+                        <a class="btn btn-danger" href="/Flights/Index">Quay lại</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        /* Form and Card Styling */
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding-top: 20px;
+        }
+
+        .card {
+            border-radius: 10px;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+        }
+
+        .card-header {
+            background-color: #007bff;
+            color: #fff;
+            font-size: 1.25rem;
+            padding: 15px;
+        }
+
+        .card-body {
+            padding: 20px;
+        }
+
+        /* Label and Input Styling */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-control {
+            font-size: 1rem;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .col-sm-2 {
+            font-weight: bold;
+        }
+
+        .text-danger {
+            color: #dc3545;
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 10px 20px;
+            font-size: 1rem;
+            border-radius: 5px;
+        }
+
+        .btn-success {
+            background-color: #28a745;
+            border-color: #28a745;
+        }
+
+        .btn-danger {
+            background-color: #dc3545;
+            border-color: #dc3545;
+        }
+
+        .btn-success:hover,
+        .btn-danger:hover {
+            opacity: 0.9;
+        }
+    </style>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

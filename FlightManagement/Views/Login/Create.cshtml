@@ -1,0 +1,146 @@
+﻿@model FlightManagement.Models.Account
+
+@{
+    ViewBag.Title = "Tạo Tài Khoản";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@using (Html.BeginForm("Create", "Accounts", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="container mt-4">
+        <div class="card">
+            <div class="card-header bg-primary text-white text-center">
+                <h4>Thêm Mới Tài Khoản</h4>
+            </div>
+            <div class="card-body">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                <!-- Họ -->
+                <div class="form-group row">
+                    @Html.LabelFor(model => model.lastName, "Họ", htmlAttributes: new { @class = "col-sm-2 col-form-label" })
+                    <div class="col-sm-10">
+                        @Html.EditorFor(model => model.lastName, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.lastName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <!-- Tên -->
+                <div class="form-group row">
+                    @Html.LabelFor(model => model.firstName, "Tên", htmlAttributes: new { @class = "col-sm-2 col-form-label" })
+                    <div class="col-sm-10">
+                        @Html.EditorFor(model => model.firstName, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.firstName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <!-- Tài khoản -->
+                <div class="form-group row">
+                    @Html.LabelFor(model => model.username, "Tài khoản", htmlAttributes: new { @class = "col-sm-2 col-form-label" })
+                    <div class="col-sm-10">
+                        @Html.EditorFor(model => model.username, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.username, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <!-- Mật khẩu -->
+                <div class="form-group row">
+                    @Html.LabelFor(model => model.password, "Mật khẩu", htmlAttributes: new { @class = "col-sm-2 col-form-label" })
+                    <div class="col-sm-10">
+                        @Html.EditorFor(model => model.password, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <!-- Loại tài khoản -->
+                <div class="form-group row">
+                    @Html.LabelFor(model => model.accountTypeID, "Role", htmlAttributes: new { @class = "col-sm-2 col-form-label" })
+                    <div class="col-sm-10">
+                        @Html.DropDownList("accountTypeID", (IEnumerable<SelectListItem>)ViewBag.AccountTypes, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.accountTypeID, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <!-- Nút Submit -->
+                <div class="form-group row">
+                    <div class="col-sm-12">
+                        <input type="submit" value="Thêm Tài Khoản" class="btn btn-success" />
+                        <a class="btn btn-danger" href="/Login/Index">Quay lại</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        /* Form and Card Styling */
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding-top: 20px;
+        }
+
+        .card {
+            border-radius: 10px;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+        }
+
+        .card-header {
+            background-color: #007bff;
+            color: #fff;
+            font-size: 1.25rem;
+            padding: 15px;
+        }
+
+        .card-body {
+            padding: 20px;
+        }
+
+        /* Label and Input Styling */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-control {
+            font-size: 1rem;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .col-sm-2 {
+            font-weight: bold;
+        }
+
+        .text-danger {
+            color: #dc3545;
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 10px 20px;
+            font-size: 1rem;
+            border-radius: 5px;
+        }
+
+        .btn-success {
+            background-color: #28a745;
+            border-color: #28a745;
+        }
+
+        .btn-danger {
+            background-color: #dc3545;
+            border-color: #dc3545;
+        }
+
+            .btn-success:hover,
+            .btn-danger:hover {
+                opacity: 0.9;
+            }
+    </style>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

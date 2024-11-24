@@ -1,0 +1,217 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f2f5;
+            color: #333;
+            display: flex;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .sidebar {
+            width: 220px;
+            padding-left: 20px;
+            background-color: #ffffff;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: fixed;
+            height: 100%;
+            overflow-y: hidden;
+            border-top-right-radius: 20px;
+            border-bottom-right-radius: 20px;
+        }
+
+            .sidebar:hover {
+                overflow-y: auto;
+            }
+
+            .sidebar .logo {
+                display: block;
+                text-align: center;
+            }
+
+                .sidebar .logo img {
+                    max-width: 100%;
+                    height: auto;
+                }
+
+            .sidebar ul {
+                list-style: none;
+                padding: 0;
+                margin: 0;
+            }
+
+            .sidebar li {
+                width: 100%;
+            }
+
+            .sidebar a {
+                display: flex;
+                align-items: center;
+                padding: 10px 20px;
+                color: #77dada;
+                text-decoration: none;
+                transition: all 0.3s ease;
+                border-top-left-radius: 25px;
+                border-bottom-left-radius: 25px;
+            }
+
+                .sidebar a .icon {
+                    margin-right: 10px;
+                    font-size: 1.5em;
+                    width: 30px;
+                    height: 30px;
+                }
+
+                .sidebar a:hover:not(.logo a), .sidebar a.active {
+                    background-color: #77dada;
+                    color: #ffffff;
+                }
+
+        .main-content {
+            flex: 1;
+            padding: 20px;
+            overflow: auto;
+            margin-left: 220px;
+        }
+
+        footer {
+            background-color: #ffffff;
+            padding: 20px;
+            box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .small-box {
+            background: #ffffff;
+            border-radius: 0.25rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            color: #333;
+            display: block;
+            margin-bottom: 20px;
+            overflow: hidden;
+            padding: 20px;
+            position: relative;
+        }
+
+            .small-box h3 {
+                font-size: 2.2em;
+                font-weight: bold;
+                margin: 0;
+                padding: 0;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+
+            .small-box p {
+                font-size: 1.2em;
+            }
+
+            .small-box .icon {
+                color: rgba(0, 0, 0, 0.15);
+                font-size: 4.5em;
+                position: absolute;
+                right: 10px;
+                top: 10px;
+                z-index: 0;
+            }
+
+            .small-box .small-box-footer {
+                background: rgba(0, 0, 0, 0.15);
+                color: #ffffff;
+                display: block;
+                padding: 10px 0;
+                text-align: center;
+                text-decoration: none;
+                z-index: 10;
+            }
+
+                .small-box .small-box-footer:hover {
+                    background: rgba(0, 0, 0, 0.15);
+                }
+
+        .bg-primary {
+            background-color: #007bff !important;
+            color: #fff !important;
+        }
+
+        .bg-secondary {
+            background-color: #6c757d !important;
+            color: #fff !important;
+        }
+
+        .bg-info {
+            background-color: #17a2b8 !important;
+            color: #fff !important;
+        }
+
+        .bg-warning {
+            background-color: #ffc107 !important;
+            color: #fff !important;
+        }
+
+        .bg-success {
+            background-color: #28a745 !important;
+            color: #fff !important;
+        }
+
+        .bg-danger {
+            background-color: #dc3545 !important;
+            color: #fff !important;
+        }
+
+        .chart-row {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="sidebar">
+        <div>
+            <div class="logo">
+                <a>
+                    <img src="~/Content/Image/logoagoda.png" alt="Logo">
+                </a>
+            </div>
+            <ul>
+                <li><a href="@Url.Action("Index", "Login")" class="@((ViewContext.RouteData.Values["controller"].ToString() == "Accounts") ? "active" : "")"><i class="fas fa-user icon"></i> Account</a></li>
+                <li><a href="@Url.Action("Index", "Airlines")" class="@((ViewContext.RouteData.Values["controller"].ToString() == "Airlines") ? "active" : "")"><i class="fas fa-plane icon"></i> Airline</a></li>
+                <li><a href="@Url.Action("Index", "Hotel")" class="@((ViewContext.RouteData.Values["controller"].ToString() == "Hotel") ? "active" : "")"><i class="fas fa-bed icon"></i> Hotel</a></li>
+                <li><a href="@Url.Action("Index", "Aircrafts")" class="@((ViewContext.RouteData.Values["controller"].ToString() == "Aircrafts") ? "active" : "")"><i class="fas fa-plane-departure icon"></i> Aircraft</a></li>
+                <li><a href="@Url.Action("Index", "Flights")" class="@((ViewContext.RouteData.Values["controller"].ToString() == "Flights") ? "active" : "")"><i class="fas fa-fighter-jet icon"></i> Flight</a></li>
+                <li><a href="@Url.Action("Index", "Booking")" class="@((ViewContext.RouteData.Values["controller"].ToString() == "Bookings") ? "active" : "")"><i class="fas fa-book icon"></i> Booking</a></li>
+                <li><a href="@Url.Action("Index", "Payment")" class="@((ViewContext.RouteData.Values["controller"].ToString() == "Payments") ? "active" : "")"><i class="fas fa-credit-card icon"></i> Payments</a></li>
+                <li class="Header_menu__jRq_R h-full flex align-center" style="margin-left: 10px">
+                    <a href="javascript:void(0);" onclick="confirmLogout();" class="md"><i class="fas fa-sign-out-alt"></i> Đăng Xuất</a>
+                </li>
+
+            </ul>
+        </div>
+    </nav>
+    <div class="main-content">
+        @RenderBody()
+    </div>
+    <script>
+    function confirmLogout() {
+    if (confirm("Bạn có muốn đăng xuất không?")) {
+        window.location.href = "@Url.Action("Login", "Login")";
+    }
+}
+    </script>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

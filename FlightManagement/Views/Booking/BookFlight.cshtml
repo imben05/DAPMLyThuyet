@@ -1,0 +1,14 @@
+﻿@model FlightManagement.Models.Booking
+@{
+    var flight = ViewBag.Flight as FlightManagement.Models.Flight;
+}
+
+<h2>Đặt vé chuyến bay</h2>
+<p>Chuyến bay từ @flight.departureCity đến @flight.arrivalCity</p>
+<p>Ngày khởi hành: @flight.departureTime</p>
+<p>Giá vé: @flight.flightPrice VND</p>
+
+<form asp-action="BookFlight" method="post">
+    <input type="hidden" name="flightID" value="@flight.flightID" />
+    <button type="submit" class="btn btn-primary">Đặt vé và Thanh toán</button>
+</form>

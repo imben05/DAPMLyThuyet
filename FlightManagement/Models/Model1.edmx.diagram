@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="390abcca8b3348da9f29c26beca00b0a" Name="Diagram1">
+        <EntityTypeShape EntityType="DAPMLThuyetModel.Account" Width="1.5" PointX="5.25" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DAPMLThuyetModel.AccountType" Width="1.5" PointX="3" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DAPMLThuyetModel.Aircraft" Width="1.5" PointX="3" PointY="6.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DAPMLThuyetModel.Airline" Width="1.5" PointX="0.75" PointY="6.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DAPMLThuyetModel.Booking" Width="1.5" PointX="7.5" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="DAPMLThuyetModel.BookingHotel" Width="1.5" PointX="7.5" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="DAPMLThuyetModel.CustomerInfo" Width="1.5" PointX="9.75" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DAPMLThuyetModel.Flight" Width="1.5" PointX="5.25" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="DAPMLThuyetModel.Hotel" Width="1.5" PointX="5.25" PointY="10" IsExpanded="true" />
+        <EntityTypeShape EntityType="DAPMLThuyetModel.MoMoPayment" Width="1.5" PointX="9.75" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DAPMLThuyetModel.Payment" Width="1.5" PointX="9.75" PointY="10.25" IsExpanded="true" />
+        <AssociationConnector Association="DAPMLThuyetModel.FK__Account__account__4E88ABD4" ManuallyRouted="false" />
+        <AssociationConnector Association="DAPMLThuyetModel.FK__Booking__account__5070F446" ManuallyRouted="false" />
+        <AssociationConnector Association="DAPMLThuyetModel.FK__BookingHo__accou__52593CB8" ManuallyRouted="false" />
+        <AssociationConnector Association="DAPMLThuyetModel.FK__Aircraft__airlin__4F7CD00D" ManuallyRouted="false" />
+        <AssociationConnector Association="DAPMLThuyetModel.FK__Flight__aircraft__5535A963" ManuallyRouted="false" />
+        <AssociationConnector Association="DAPMLThuyetModel.FK__Flight__airlineI__5629CD9C" ManuallyRouted="false" />
+        <AssociationConnector Association="DAPMLThuyetModel.FK__Booking__flightI__5165187F" ManuallyRouted="false" />
+        <AssociationConnector Association="DAPMLThuyetModel.FK__CustomerI__Booki__5441852A" ManuallyRouted="false" />
+        <AssociationConnector Association="DAPMLThuyetModel.FK__MoMoPayme__booki__571DF1D5" ManuallyRouted="false" />
+        <AssociationConnector Association="DAPMLThuyetModel.FK__Payment__booking__5812160E" ManuallyRouted="false" />
+        <AssociationConnector Association="DAPMLThuyetModel.FK__BookingHo__IdHot__534D60F1" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

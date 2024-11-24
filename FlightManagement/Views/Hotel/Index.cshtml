@@ -1,0 +1,145 @@
+﻿@model IEnumerable<FlightManagement.Models.Hotel>
+
+@{
+    ViewBag.Title = "Danh Sách Khách Sạn";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @TempData["SuccessMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-header">
+            <h4 class="card-title text-center">Danh Sách Khách Sạn</h4>
+        </div>
+        <div class="card-body">
+            <div class="mb-3">
+                <a class="btn btn-success" href="/Hotel/Them" style="padding: 5px">Thêm Mới Khách Sạn</a>
+            </div>
+
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>Tên Khách Sạn</th>
+                        <th>Địa Chỉ</th>
+                        <th>Số Điện Thoại</th>
+                        <th>Sao</th>
+                        <th>Mô Tả</th>
+                        <th>Ngày</th>
+                        <th>Vị Trí</th>
+                        <th>Giá Phòng</th>
+                        <th>Số Phòng</th>
+                        <th>Thời Gian Khởi Hành</th>
+                        <th>Thời Gian Trở Về</th>
+                        <th>Hình Ảnh</th>
+                        <th>Chức Năng</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@Html.DisplayFor(modelItem => item.NameHotel)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Address)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Phone)</td>
+                            <td>@Html.DisplayFor(modelItem => item.StarRange)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Decripstion)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Date)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Location)</td>
+                            <td>@Html.DisplayFor(modelItem => item.RoomPrice)</td>
+                            <td>@Html.DisplayFor(modelItem => item.RoomCount)</td>
+                            <td>@Html.DisplayFor(modelItem => item.depatureTime)</td>
+                            <td>@Html.DisplayFor(modelItem => item.returnTime)</td>
+                            <td>
+                                <div class="div-img-client">
+                                    <img src="@Url.Content(item.HinhAnh)" height="150" width="120" class="img-fluid" />
+                                </div>
+                            </td>
+                            <td>
+                                @Html.ActionLink("Sửa", "Edit", new { id = item.IdHotel }, new { @class = "btn btn-primary btn-sm" }) |
+                                @Html.ActionLink("Xóa", "Delete", new { id = item.IdHotel }, new { @class = "btn btn-danger btn-sm" })
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<style>
+    /* Cập nhật giao diện bảng */
+    .table {
+        width: 100%;
+        margin-bottom: 1rem;
+        background-color: #fff;
+    }
+
+    .table-bordered {
+        border: 1px solid #ddd;
+    }
+
+    .table-striped tbody tr:nth-child(odd) {
+        background-color: #f9f9f9;
+    }
+
+    .table th, .table td {
+        padding: 8px 12px;
+        text-align: center;
+    }
+
+    /* Nút "Thêm mới" */
+    .card-body .mb-3 .btn-success {
+        font-size: 1rem;
+        padding: 8px 15px;
+        border-radius: 5px;
+    }
+
+    /* Nút "Chỉnh sửa" và "Xóa" */
+    .btn-sm {
+        font-size: 0.85rem;
+        padding: 5px 10px;
+        border-radius: 4px;
+    }
+
+    /* Card */
+    .card {
+        border-radius: 10px;
+        border: none;
+        box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .card-header {
+        background-color: #007bff;
+        color: #fff;
+        text-align: center;
+        padding: 15px;
+    }
+
+    .card-body {
+        background-color: #f8f9fa;
+    }
+
+    /* Thông báo thành công */
+    .alert-dismissible {
+        margin-bottom: 20px;
+    }
+
+    /* Hình ảnh khách sạn */
+    .div-img-client {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+        .div-img-client img {
+            border-radius: 8px;
+            object-fit: cover;
+        }
+</style>

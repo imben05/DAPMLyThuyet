@@ -1,0 +1,156 @@
+﻿@model FlightManagement.Models.Aircraft
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="containerr">
+    <h4 class="text-center text-danger">Xóa Máy Bay</h4>
+    <hr />
+
+    <!-- Khung chứa thông tin máy bay -->
+    <div class="info-box">
+        <dl class="row">
+            <dt class="col-sm-3 font-weight-bold">
+                Model
+            </dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.model)
+            </dd>
+
+            <dt class="col-sm-3 font-weight-bold">
+                Sức chứa
+            </dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.capacity)
+            </dd>
+
+            <dt class="col-sm-3 font-weight-bold">
+                Hãng hàng không
+            </dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.Airline.airlineName)
+            </dd>
+        </dl>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-sm-12 text-center" style="padding: 10px">
+            <!-- Nút Xóa (hiện Modal khi nhấn) -->
+            <button type="button" class="btn btn-danger btn-lg" data-toggle="modal" data-target="#deleteModal">
+                Xóa
+            </button>
+            <a class="btn btn-info btn-lg" href="/Aircrafts/Index">Quay lại</a>
+        </div>
+    </div>
+
+    <!-- Modal Xác Nhận Xóa -->
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteModalLabel">Xác nhận xóa</h5>
+                </div>
+                <div class="modal-body">
+                    Bạn có chắc chắn muốn xóa máy bay <strong>@Html.DisplayFor(model => model.model)</strong> không?
+                </div>
+                <div class="modal-footer">
+                    <!-- Nút Xác Nhận Xóa -->
+                    @using (Html.BeginForm())
+                    {
+                        @Html.AntiForgeryToken()
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                        <input type="submit" value="Xóa" class="btn btn-danger" />
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Đảm bảo đã tích hợp jQuery và Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<!-- Thêm CSS để bo góc và cải thiện giao diện -->
+<style>
+    /* Cải thiện không gian và căn chỉnh các mục */
+    .containerr {
+        max-width: 500px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    /* Khung chứa thông tin máy bay */
+    .info-box {
+        display: flex;
+        flex-direction: column;
+        background-color: #ffffff;
+        border-radius: 8px;
+        padding: 20px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+    }
+
+        /* Loại bỏ đường kẻ giữa các mục */
+        .info-box dl {
+            margin-bottom: 0;
+        }
+
+        .info-box dt,
+        .info-box dd {
+            margin: 0;
+            padding: 0px 0px 0px 25px;
+        }
+
+        /* Cải thiện kiểu chữ và màu sắc */
+        .info-box dt {
+            font-weight: bold;
+            color: #333;
+        }
+
+        .info-box dd {
+            color: #555;
+        }
+
+    .modal-content {
+        border-radius: 8px;
+    }
+
+    .modal-header {
+        background-color: #f7f7f7;
+        border-bottom: 1px solid #ddd;
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+    }
+
+    .modal-footer {
+        background-color: #f7f7f7;
+        border-top: 1px solid #ddd;
+        border-bottom-left-radius: 8px;
+        border-bottom-right-radius: 8px;
+    }
+
+    /* Các nút */
+    .btn-lg {
+        font-size: 1.2rem;
+        border-radius: 8px;
+    }
+
+    .btn-danger {
+        background-color: #dc3545;
+        border-color: #dc3545;
+    }
+
+    .btn-info {
+        background-color: #17a2b8;
+        border-color: #17a2b8;
+    }
+
+        .btn-danger:hover,
+        .btn-info:hover {
+            opacity: 0.8;
+        }
+</style>

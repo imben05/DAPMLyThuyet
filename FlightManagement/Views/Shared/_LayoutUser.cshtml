@@ -1,0 +1,799 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            font-family: Archivo, sans-serif;
+        }
+
+        .navbar {
+            display: flex;
+            height: 80px;
+            justify-content: space-between;
+            align-items: center;
+            background-color: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: fixed; /* Make the navbar fixed */
+            top: 0; /* Position it at the top of the page */
+            width: 100%; /* Make it span the full width */
+            z-index: 1000; /* Ensure it sits above other elements */
+        }
+
+        .navbar-left {
+            display: flex;
+            align-items: center;
+            margin-left: 100px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+            .logo img {
+                height: 80px;
+                margin-right: 10px;
+            }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            height: 100%;
+        }
+
+        .Header_menu__jRq_R {
+            margin-right: 15px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            position: relative;
+        }
+
+            .Header_menu__jRq_R::after {
+                content: '';
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                height: 4px;
+                background-color: #77dada;
+                transform: scaleX(0);
+                transition: transform 0.3s ease;
+            }
+
+            .Header_menu__jRq_R:hover::after {
+                transform: scaleX(1);
+            }
+
+            .Header_menu__jRq_R a, .Header_menu__jRq_R label {
+                font-weight: 600;
+                transition: color 0.3s ease;
+                text-decoration: none;
+                color: #0e4f4f;
+                display: flex;
+                align-items: center;
+            }
+
+            .Header_menu__jRq_R:hover a, .Header_menu__jRq_R:hover label {
+                color: #77dada;
+            }
+
+
+        .contact-info {
+            display: flex;
+            align-items: center;
+            margin-right: 100px;
+            font-weight: 600;
+        }
+
+        .hotline {
+            display: flex;
+            align-items: center;
+        }
+
+            .hotline i {
+                margin-right: 5px;
+                color: #77dada;
+            }
+
+        .contact-btn {
+            margin-left: 15px;
+            padding: 10px 20px;
+            background-color: white;
+            border: none; /* Loại bỏ đường viền mặc định */
+            border-radius: 8px; /* Bo góc cho nút */
+            cursor: pointer; /* Con trỏ dạng tay khi di chuột vào */
+            font-weight: 600;
+            transition: all 0.3s ease;
+            color: #3b3838;
+        }
+
+            .contact-btn:hover {
+                background-color: #c2ebe3; /* Màu nền khi di chuột */
+                box-shadow: 0 0 15px rgba(0, 0, 0, 0.2); /* Đổ bóng xung quanh */
+                border-radius: 12px; /* Tăng bán kính bo góc */
+            }
+
+        body {
+            padding-top: 100px;
+        }
+
+        .user-info {
+            position: absolute;
+            right: 20px;
+            top: 80px;
+            background-color: white;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            border-radius: 5px;
+            z-index: 1000;
+            width: 250px;
+        }
+
+        .user-info-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .user-info-body {
+            margin-top: 10px;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        .register-btn {
+            background-color: #fff; /* Màu nền ban đầu của nút */
+            color: #3b3838; /* Màu chữ */
+            padding: 10px 20px; /* Khoảng cách trong nút */
+            border-color: rgb(193, 203, 224);
+            border-style: solid;
+            border-radius: 999px; /* Bo góc cho nút */
+            cursor: pointer; /* Con trỏ dạng tay khi di chuột vào */
+            transition: all 0.3s ease; /* Hiệu ứng mượt khi thay đổi */
+            font-weight: 600;
+        }
+
+            /* Hiệu ứng khi di chuột vào */
+            .register-btn:hover {
+                background-color: #82f1ea; /* Màu nền khi di chuột */
+                box-shadow: 0 0 15px rgba(0, 0, 0, 0.2); /* Đổ bóng xung quanh */
+                border-radius: 999px; /* Tăng bán kính bo góc */
+            }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: rgba(255, 255, 255, 1);
+            margin: 0;
+        }
+
+        .background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 700px;
+            z-index: -1;
+            object-fit: cover;
+            filter: brightness(0.8); /* Dims the image for readability */
+            background: linear-gradient(to bottom right, rgba(255, 255, 255, 0.6), rgba(0, 176, 240, 0.6)), url('~/Content/Image/page.jpg');
+            background-size: cover;
+            background-position: center;
+            position: absolute;
+        }
+
+        .search-container {
+            background-color: rgba(255, 255, 255, 1);
+            border-radius: 15px;
+            padding: 20px;
+            max-width: 800px;
+            margin: 100px auto;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        p {
+            color: #666;
+            margin-top: 0;
+        }
+
+        .trip-type {
+            display: flex;
+            margin-bottom: 20px;
+            justify-content: space-between;
+        }
+
+            .trip-type button {
+                flex: 1;
+                padding: 10px;
+                border: 1px solid #ddd;
+                background-color: white;
+                cursor: pointer;
+                border-radius: 20px;
+                margin-right: 30px;
+                max-width: calc(50% - 15px);
+            }
+
+                .trip-type button:last-child {
+                    margin-right: 0;
+                }
+
+                .trip-type button.active {
+                    background-color: #4FD1C5;
+                    color: white;
+                    border-color: #4FD1C5;
+                }
+
+        .form-row {
+            display: flex;
+            margin-bottom: 15px;
+        }
+
+        .form-group {
+            flex: 1;
+            margin-right: 10px;
+            position: relative; /* Thêm để định vị icon */
+            text-align: left; /* Đảm bảo căn trái cho nội dung trong form-group */
+        }
+
+            .form-group:last-child {
+                margin-right: 0;
+            }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+            text-align: left; /* Căn trái cho label */
+        }
+
+        input[type="text"],
+        input[type="date"],
+        input[type="number"] {
+            width: 100%;
+            padding: 10px 10px 10px 35px; /* Thêm khoảng trống cho icon */
+            border: 2px solid #ddd;
+            border-radius: 20px;
+            box-sizing: border-box;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+            input[type="text"]:focus,
+            input[type="date"]:focus,
+            input[type="number"]:focus {
+                border-color: #77dada; /* Màu viền khi được click */
+                box-shadow: 0 0 5px rgba(119, 218, 218, 0.5); /* Thêm hiệu ứng bóng */
+                outline: none; /* Xóa bỏ viền outline mặc định */
+            }
+
+        .form-group i {
+            position: absolute;
+            top: 35px;
+            left: 10px;
+            color: #888;
+        }
+
+        #adultCount {
+            width: 70%;
+        }
+
+        .passenger-count {
+            display: flex;
+            align-items: center;
+        }
+
+        .passenger-input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        .search-button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4FD1C5;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 0 auto;
+            display: block;
+        }
+
+            .search-button:hover {
+                background-color: #3EA9A0;
+            }
+
+        .Flight_partnerSection__ABij9 {
+            padding: 20px 0;
+            background-color: #f7f7f7;
+            background-image: url('~/Content/Image/section-background.png');
+            background-size: cover;
+            background-position: center;
+        }
+
+
+        .PartnerSection_section__P2CUK {
+            text-align: center;
+        }
+
+        .SectionHeader_sectionHeader__60CR7 {
+            margin-bottom: 30px;
+        }
+
+        .SectionHeader_title__eE2Rf h4 {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .SectionHeader_description__2ZD1p {
+            color: #666;
+            font-size: 16px;
+        }
+
+        .PartnerSection_partnerList__4jUaE {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .PartnerSection_img-wrapper__MvPBJ {
+            margin: 10px;
+            flex: 0 0 150px;
+            position: relative;
+        }
+
+            .PartnerSection_img-wrapper__MvPBJ img {
+                width: 100%;
+                height: auto;
+            }
+
+        .flight-partner-section {
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+
+        .section-header h4 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .top-destination-container {
+            display: flex;
+            gap: 15px;
+            overflow-x: auto;
+            padding-bottom: 15px;
+            scrollbar-width: thin;
+            scrollbar-color: #888 #e0e0e0;
+        }
+
+            .top-destination-container::-webkit-scrollbar {
+                height: 8px;
+            }
+
+            .top-destination-container::-webkit-scrollbar-thumb {
+                background: #888;
+                border-radius: 10px;
+            }
+
+            .top-destination-container::-webkit-scrollbar-track {
+                background: #e0e0e0;
+            }
+
+        .top-destination-city-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px; /* Adjust spacing between items */
+            justify-content: center; /* Center align items */
+        }
+
+        .top-destination-city-item {
+            min-width: 200px;
+            max-width: 200px;
+            text-align: center;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+            .top-destination-city-item img {
+                width: 100%;
+                border-radius: 15px;
+            }
+
+            .top-destination-city-item h3 {
+                font-size: 16px;
+                margin: 10px 0 5px;
+                font-weight: 600;
+            }
+
+            .top-destination-city-item span {
+                font-size: 12px;
+                color: #666;
+                padding-bottom: 10px;
+            }
+
+        .PartnerSection_img-wrapper__MvPBJ {
+            margin-right: 40px;
+        }
+
+        .PartnerSection_partnerList__4jUaE {
+            display: flex;
+            gap: 20px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-left">
+            <div class="logo">
+                <img src="~/Content/Image/logoagoda.png" alt="Logo">
+            </div>
+            <div class="nav-links">
+                <div class="Header_menu__jRq_R h-full flex align-center">
+                    <a href="#" id="flightLink" onclick="toggleSearchType('flight')" class="md">Vé máy bay</a>
+                </div>
+                <div class="Header_menu__jRq_R h-full flex align-center">
+                    <a href="#" id="hotelLink" onclick="toggleSearchType('hotel')" class="md">Khách sạn</a>
+                </div>
+            </div>
+        </div>
+        @if (@Session["username"] != null)
+        {
+            <div class="contact-info">
+                <div class="Header_menu__jRq_R h-full flex align-center" style="margin-left: 10px">
+                    <a href="javascript:void(0);" onclick="showUserInfo();" class="md"><i class="fas fa-user"></i></a>
+                </div>
+                <div id="user-info" class="user-info" style="display: none;">
+                    <div class="user-info-header">
+                        <h3>TÀI KHOẢN CỦA TÔI</h3>
+                        <button onclick="hideUserInfo();" class="close-btn">&times;</button>
+                    </div>
+                    <div class="user-info-body">
+                        <a href="@Url.Action("Details", "Login", new { id = Session["idUser"] })" class="info">Thông tin tài khoản</a>
+                    </div>
+                    <div class="user-info-body">
+                        <a href="javascript:void(0);" onclick="redirectToPage('')">Đơn đặt phòng</a>
+                    </div>
+                    <div class="user-info-body">
+                        <a href="javascript:void(0);" onclick="confirmLogout();" class="md" style="color:#4FD1C5">Đăng xuất</a>
+                    </div>
+                </div>
+                <div class="Header_menu__jRq_R h-full flex align-center" style="margin-left: 10px">
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="contact-info">
+                <button class="contact-btn" onclick="redirectToPage('/Login/Login')">Đăng Nhập</button>
+                <div id="user-section" class="Header_menu__jRq_R h-full flex align-center" style="margin-left: 5px">
+                    <span id="userGreeting" style="display: none;"></span>
+                </div>
+                <button class="register-btn" onclick="redirectToPage('/Login/Register')">Tạo tài khoản</button>
+            </div>
+        }
+    </nav>
+    <img src="~/Content/Image/page.png" class="background" />
+    <div class="search-container">
+        <h1>Rong chơi bốn phương, giá vẫn "yêu thương"</h1>
+
+        <!-- Trip type selector -->
+        <div class="trip-type">
+            <button class="active" id="flight" onclick="toggleSearchType('flight')">Chuyến bay</button>
+            <button id="hotel" onclick="toggleSearchType('hotel')">Khách sạn</button>
+        </div>
+
+        <!-- Flight search form -->
+        <div id="flightForm" style="display: block;">
+            <form action="Search" method="post">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="departureCity">Điểm đi</label>
+                        <i class="fas fa-plane-departure"></i>
+                        <input type="text" id="departureCity" name="departureCity" placeholder="Vui lòng nhập điểm đi">
+                    </div>
+                    <div class="form-group">
+                        <label for="arrivalCity">Điểm đến</label>
+                        <i class="fas fa-plane-arrival"></i>
+                        <input type="text" id="arrivalCity" name="arrivalCity" placeholder="Vui lòng nhập điểm đến">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="departureTime">Ngày đi</label>
+                        <i class="fas fa-calendar-alt"></i>
+                        <input type="date" id="departureTime" name="departureTime">
+                    </div>
+                </div>
+                <button type="submit" class="search-button">Tìm chuyến bay</button>
+            </form>
+
+        </div>
+
+        <!-- Hotel search form -->
+        <div id="hotelForm" style="display: none;">
+            <form action="SearchHotel" method="post">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="Location">Điểm đến</label>
+                        <i class="fas fa-hotel"></i>
+                        <input type="text" id="Location" name="Location" placeholder="Nhập điểm du lịch hoặc tên khách sạn">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="NameHotel">Tên Khách Sạn</label>
+                        <i class="fas fa-hotel"></i>
+                        <input type="text" id="NameHotel" name="NameHotel" placeholder="Nhập tên khách sạn">
+                    </div>
+                </div>
+                @*<div class="form-row">
+            <div class="form-group">
+                <label for="depatureTime">Ngày nhận phòng</label>
+                <i class="fas fa-calendar-alt"></i>
+                <input type="date" id="depatureTime" name="depatureTime">
+            </div>
+            <div class="form-group">
+                <label for="returnTime">Ngày trả phòng</label>
+                <i class="fas fa-calendar-alt"></i>
+                <input type="date" id="returnTime" name="returnTime">
+            </div>
+        </div>*@
+                <button type="submit" class="search-button">Tìm khách sạn</button>
+            </form>
+        </div>
+
+        <!-- Apartment search form -->
+    </div>
+
+
+    <div class="Flight_partnerSection__ABij9 section-bg">
+        <div class="container PartnerSection_section__P2CUK">
+            <div class="SectionHeader_sectionHeader__60CR7">
+                <div class="SectionHeader_title__eE2Rf">
+                    <h4>Các điểm đến thu hút <br>nhất tại Việt Nam</h4>
+                    <div>
+                        <span style="box-sizing: border-box; display: inline-block; overflow: hidden; width: initial; height: initial; background: none; opacity: 1; border: 0px; margin: 0px; padding: 0px; position: relative; max-width: 100%;">
+                            <span style="box-sizing: border-box; display: block; width: initial; height: initial; background: none; opacity: 1; border: 0px; margin: 0px; padding: 0px; max-width: 100%;"></span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="top-destination-city-container">
+                <div class="top-destination-city-item">
+                    <img style="width:200px" data-element-name="top-destination-city-image" alt="Hồ Chí Minh" srcset="//pix6.agoda.net/geo/city/13170/1_13170_02.jpg?ca=6&amp;ce=1&amp;s=16x&amp;ar=1x1 16w, //pix6.agoda.net/geo/city/13170/1_13170_02.jpg?ca=6&amp;ce=1&amp;s=116x&amp;ar=1x1 116w, //pix6.agoda.net/geo/city/13170/1_13170_02.jpg?ca=6&amp;ce=1&amp;s=375x&amp;ar=1x1 375w, //pix6.agoda.net/geo/city/13170/1_13170_02.jpg?ca=6&amp;ce=1&amp;s=600x&amp;ar=1x1 600w, //pix6.agoda.net/geo/city/13170/1_13170_02.jpg?ca=6&amp;ce=1&amp;s=800x&amp;ar=1x1 800w, //pix6.agoda.net/geo/city/13170/1_13170_02.jpg?ca=6&amp;ce=1&amp;s=1024x&amp;ar=1x1 1024w" src="//pix6.agoda.net/geo/city/13170/1_13170_02.jpg?ca=6&amp;ce=1&amp;s=345x345&amp;ar=1x1" loading="lazy" class="sc-fFubgz sc-bkzZxe  bSwUia" sizes="200px">
+                    <h3 class="top-destination-city-info" style="font-weight: 600; line-height: calc(20.33px); font-size: 16px; margin-top: calc(10.67px); margin-bottom: calc(-1.33px);">Hồ Chí Minh</h3>
+                    <span class="top-destination-city-info" style="font-weight: 400; line-height: calc(14.98px); font-size: 12px; margin-top: calc(3.02px); margin-bottom: calc(-0.98px);">15,594 chỗ ở</span>
+                </div>
+                <div class="top-destination-city-item">
+                    <img style="width:200px" data-element-name="top-destination-city-image" alt="Nha Trang" srcset="//pix6.agoda.net/geo/city/2679/1_2679_02.jpg?ca=6&amp;ce=1&amp;s=16x&amp;ar=1x1 16w, //pix6.agoda.net/geo/city/2679/1_2679_02.jpg?ca=6&amp;ce=1&amp;s=116x&amp;ar=1x1 116w, //pix6.agoda.net/geo/city/2679/1_2679_02.jpg?ca=6&amp;ce=1&amp;s=375x&amp;ar=1x1 375w, //pix6.agoda.net/geo/city/2679/1_2679_02.jpg?ca=6&amp;ce=1&amp;s=600x&amp;ar=1x1 600w, //pix6.agoda.net/geo/city/2679/1_2679_02.jpg?ca=6&amp;ce=1&amp;s=800x&amp;ar=1x1 800w, //pix6.agoda.net/geo/city/2679/1_2679_02.jpg?ca=6&amp;ce=1&amp;s=1024x&amp;ar=1x1 1024w" src="//pix6.agoda.net/geo/city/2679/1_2679_02.jpg?ca=6&amp;ce=1&amp;s=345x345&amp;ar=1x1" loading="lazy" class="sc-fFubgz sc-bkzZxe  bSwUia" sizes="200px">
+                    <h3 class="top-destination-city-info" style="font-weight: 600; line-height: calc(20.33px); font-size: 16px; margin-top: calc(10.67px); margin-bottom: calc(-1.33px);">Nha Trang</h3>
+                    <span class="top-destination-city-info" style="font-weight: 400; line-height: calc(14.98px); font-size: 12px; margin-top: calc(3.02px); margin-bottom: calc(-0.98px);">4.098 chỗ ở</span>
+                </div>
+                <div class="top-destination-city-item">
+                    <img style="width:200px" data-element-name="top-destination-city-image" alt="Hà Nội" srcset="//pix6.agoda.net/geo/city/2758/065f4f2c9fa263611ab65239ecbeaff7.jpg?ce=0&amp;s=16x&amp;ar=1x1 16w, //pix6.agoda.net/geo/city/2758/065f4f2c9fa263611ab65239ecbeaff7.jpg?ce=0&amp;s=116x&amp;ar=1x1 116w, //pix6.agoda.net/geo/city/2758/065f4f2c9fa263611ab65239ecbeaff7.jpg?ce=0&amp;s=375x&amp;ar=1x1 375w, //pix6.agoda.net/geo/city/2758/065f4f2c9fa263611ab65239ecbeaff7.jpg?ce=0&amp;s=600x&amp;ar=1x1 600w, //pix6.agoda.net/geo/city/2758/065f4f2c9fa263611ab65239ecbeaff7.jpg?ce=0&amp;s=800x&amp;ar=1x1 800w, //pix6.agoda.net/geo/city/2758/065f4f2c9fa263611ab65239ecbeaff7.jpg?ce=0&amp;s=1024x&amp;ar=1x1 1024w" src="//pix6.agoda.net/geo/city/2758/065f4f2c9fa263611ab65239ecbeaff7.jpg?ce=0&amp;s=345x345&amp;ar=1x1" loading="lazy" class="sc-fFubgz sc-bkzZxe  bSwUia" sizes="200px">
+                    <h3 class="top-destination-city-info" style="font-weight: 600; line-height: calc(20.33px); font-size: 16px; margin-top: calc(10.67px); margin-bottom: calc(-1.33px);">Hà Nội</h3>
+                    <span class="top-destination-city-info" style="font-weight: 400; line-height: calc(14.98px); font-size: 12px; margin-top: calc(3.02px); margin-bottom: calc(-0.98px);">10,779 chỗ ở</span>
+                </div>
+                <div class="top-destination-city-item">
+                    <img style="width:200px" data-element-name="top-destination-city-image" alt="Huế" srcset="//pix6.agoda.net/geo/city/3738/1_3738_02.jpg?ca=6&amp;ce=1&amp;s=16x&amp;ar=1x1 16w, //pix6.agoda.net/geo/city/3738/1_3738_02.jpg?ca=6&amp;ce=1&amp;s=116x&amp;ar=1x1 116w, //pix6.agoda.net/geo/city/3738/1_3738_02.jpg?ca=6&amp;ce=1&amp;s=375x&amp;ar=1x1 375w, //pix6.agoda.net/geo/city/3738/1_3738_02.jpg?ca=6&amp;ce=1&amp;s=600x&amp;ar=1x1 600w, //pix6.agoda.net/geo/city/3738/1_3738_02.jpg?ca=6&amp;ce=1&amp;s=800x&amp;ar=1x1 800w, //pix6.agoda.net/geo/city/3738/1_3738_02.jpg?ca=6&amp;ce=1&amp;s=1024x&amp;ar=1x1 1024w" src="//pix6.agoda.net/geo/city/3738/1_3738_02.jpg?ca=6&amp;ce=1&amp;s=345x345&amp;ar=1x1" loading="lazy" class="sc-fFubgz sc-bkzZxe  bSwUia" sizes="200px">
+                    <h3 class="top-destination-city-info" style="font-weight: 600; line-height: calc(20.33px); font-size: 16px; margin-top: calc(10.67px); margin-bottom: calc(-1.33px);">Huế</h3>
+                    <span class="top-destination-city-info" style="font-weight: 400; line-height: calc(14.98px); font-size: 12px; margin-top: calc(3.02px); margin-bottom: calc(-0.98px);">1,093 chỗ ở</span>
+                </div>
+                <div class="top-destination-city-item">
+                    <img style="width:200px" data-element-name="top-destination-city-image" alt="Phan Thiết" srcset="//pix6.agoda.net/geo/city/16264/1_16264_02.jpg?ca=6&amp;ce=1&amp;s=16x&amp;ar=1x1 16w, //pix6.agoda.net/geo/city/16264/1_16264_02.jpg?ca=6&amp;ce=1&amp;s=116x&amp;ar=1x1 116w, //pix6.agoda.net/geo/city/16264/1_16264_02.jpg?ca=6&amp;ce=1&amp;s=375x&amp;ar=1x1 375w, //pix6.agoda.net/geo/city/16264/1_16264_02.jpg?ca=6&amp;ce=1&amp;s=600x&amp;ar=1x1 600w, //pix6.agoda.net/geo/city/16264/1_16264_02.jpg?ca=6&amp;ce=1&amp;s=800x&amp;ar=1x1 800w, //pix6.agoda.net/geo/city/16264/1_16264_02.jpg?ca=6&amp;ce=1&amp;s=1024x&amp;ar=1x1 1024w" src="//pix6.agoda.net/geo/city/16264/1_16264_02.jpg?ca=6&amp;ce=1&amp;s=345x345&amp;ar=1x1" loading="lazy" class="sc-fFubgz sc-bkzZxe  bSwUia" sizes="200px">
+                    <h3 class="top-destination-city-info" style="font-weight: 600; line-height: calc(20.33px); font-size: 16px; margin-top: calc(10.67px); margin-bottom: calc(-1.33px);">Phan Thiết</h3>
+                    <span class="top-destination-city-info" style="font-weight: 400; line-height: calc(14.98px); font-size: 12px; margin-top: calc(3.02px); margin-bottom: calc(-0.98px);">1,605 chỗ ở</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="Flight_partnerSection__ABij9 section-bg">
+        <div class="container PartnerSection_section__P2CUK">
+            <div class="SectionHeader_sectionHeader__60CR7">
+                <div class="SectionHeader_title__eE2Rf">
+                    <h4>Các địa điểm nổi tiếng <br>ngoài Việt Nam</h4>
+                    <div>
+                        <span style="box-sizing: border-box; display: inline-block; overflow: hidden; width: initial; height: initial; background: none; opacity: 1; border: 0px; margin: 0px; padding: 0px; position: relative; max-width: 100%;">
+                            <span style="box-sizing: border-box; display: block; width: initial; height: initial; background: none; opacity: 1; border: 0px; margin: 0px; padding: 0px; max-width: 100%;"></span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="top-destination-city-container">
+                <div class="top-destination-city-item">
+                    <img style="width:200px" data-element-name="top-destination-city-image" alt="Tokyo" srcset="//pix6.agoda.net/geo/city/5085/1_5085_02.jpg?ca=6&amp;ce=1&amp;s=16x&amp;ar=1x1 16w, //pix6.agoda.net/geo/city/5085/1_5085_02.jpg?ca=6&amp;ce=1&amp;s=116x&amp;ar=1x1 116w, //pix6.agoda.net/geo/city/5085/1_5085_02.jpg?ca=6&amp;ce=1&amp;s=375x&amp;ar=1x1 375w, //pix6.agoda.net/geo/city/5085/1_5085_02.jpg?ca=6&amp;ce=1&amp;s=600x&amp;ar=1x1 600w, //pix6.agoda.net/geo/city/5085/1_5085_02.jpg?ca=6&amp;ce=1&amp;s=800x&amp;ar=1x1 800w, //pix6.agoda.net/geo/city/5085/1_5085_02.jpg?ca=6&amp;ce=1&amp;s=1024x&amp;ar=1x1 1024w" src="//pix6.agoda.net/geo/city/5085/1_5085_02.jpg?ca=6&amp;ce=1&amp;s=345x345&amp;ar=1x1" loading="lazy" class="sc-fFubgz sc-bkzZxe  bSwUia" sizes="200px">
+                    <h3 class="top-destination-city-info" style="font-weight: 600; line-height: calc(20.33px); font-size: 16px; margin-top: calc(10.67px); margin-bottom: calc(-1.33px);">Tokyo</h3>
+                    <span class="top-destination-city-info" style="font-weight: 400; line-height: calc(14.98px); font-size: 12px; margin-top: calc(3.02px); margin-bottom: calc(-0.98px);">15,594 chỗ ở</span>
+                </div>
+                <div class="top-destination-city-item">
+                    <img style="width:200px" data-element-name="top-destination-city-image" alt="Bangkok" srcset="//pix6.agoda.net/geo/city/9395/1_9395_02.jpg?ca=6&amp;ce=1&amp;s=16x&amp;ar=1x1 16w, //pix6.agoda.net/geo/city/9395/1_9395_02.jpg?ca=6&amp;ce=1&amp;s=116x&amp;ar=1x1 116w, //pix6.agoda.net/geo/city/9395/1_9395_02.jpg?ca=6&amp;ce=1&amp;s=375x&amp;ar=1x1 375w, //pix6.agoda.net/geo/city/9395/1_9395_02.jpg?ca=6&amp;ce=1&amp;s=600x&amp;ar=1x1 600w, //pix6.agoda.net/geo/city/9395/1_9395_02.jpg?ca=6&amp;ce=1&amp;s=800x&amp;ar=1x1 800w, //pix6.agoda.net/geo/city/9395/1_9395_02.jpg?ca=6&amp;ce=1&amp;s=1024x&amp;ar=1x1 1024w" src="//pix6.agoda.net/geo/city/9395/1_9395_02.jpg?ca=6&amp;ce=1&amp;s=345x345&amp;ar=1x1" loading="lazy" class="sc-fFubgz sc-bkzZxe  bSwUia" sizes="200px">
+                    <h3 class="top-destination-city-info" style="font-weight: 600; line-height: calc(20.33px); font-size: 16px; margin-top: calc(10.67px); margin-bottom: calc(-1.33px);">Bangkok</h3>
+                    <span class="top-destination-city-info" style="font-weight: 400; line-height: calc(14.98px); font-size: 12px; margin-top: calc(3.02px); margin-bottom: calc(-0.98px);">4.098 chỗ ở</span>
+                </div>
+                <div class="top-destination-city-item">
+                    <img style="width:200px" data-element-name="top-destination-city-image" alt="Nagoya" srcset="//pix6.agoda.net/geo/city/13740/1_13740_02.jpg?ca=6&amp;ce=1&amp;s=16x&amp;ar=1x1 16w, //pix6.agoda.net/geo/city/13740/1_13740_02.jpg?ca=6&amp;ce=1&amp;s=116x&amp;ar=1x1 116w, //pix6.agoda.net/geo/city/13740/1_13740_02.jpg?ca=6&amp;ce=1&amp;s=375x&amp;ar=1x1 375w, //pix6.agoda.net/geo/city/13740/1_13740_02.jpg?ca=6&amp;ce=1&amp;s=600x&amp;ar=1x1 600w, //pix6.agoda.net/geo/city/13740/1_13740_02.jpg?ca=6&amp;ce=1&amp;s=800x&amp;ar=1x1 800w, //pix6.agoda.net/geo/city/13740/1_13740_02.jpg?ca=6&amp;ce=1&amp;s=1024x&amp;ar=1x1 1024w" src="//pix6.agoda.net/geo/city/13740/1_13740_02.jpg?ca=6&amp;ce=1&amp;s=345x345&amp;ar=1x1" loading="lazy" class="sc-fFubgz sc-bkzZxe  bSwUia" sizes="200px">
+                    <h3 class="top-destination-city-info" style="font-weight: 600; line-height: calc(20.33px); font-size: 16px; margin-top: calc(10.67px); margin-bottom: calc(-1.33px);">Nagoya</h3>
+                    <span class="top-destination-city-info" style="font-weight: 400; line-height: calc(14.98px); font-size: 12px; margin-top: calc(3.02px); margin-bottom: calc(-0.98px);">10,779 chỗ ở</span>
+                </div>
+                <div class="top-destination-city-item">
+                    <img style="width:200px" data-element-name="top-destination-city-image" alt="Yokohama" srcset="//pix6.agoda.net/geo/city/4590/1_4590_02.jpg?ca=6&amp;ce=1&amp;s=16x&amp;ar=1x1 16w, //pix6.agoda.net/geo/city/4590/1_4590_02.jpg?ca=6&amp;ce=1&amp;s=116x&amp;ar=1x1 116w, //pix6.agoda.net/geo/city/4590/1_4590_02.jpg?ca=6&amp;ce=1&amp;s=375x&amp;ar=1x1 375w, //pix6.agoda.net/geo/city/4590/1_4590_02.jpg?ca=6&amp;ce=1&amp;s=600x&amp;ar=1x1 600w, //pix6.agoda.net/geo/city/4590/1_4590_02.jpg?ca=6&amp;ce=1&amp;s=800x&amp;ar=1x1 800w, //pix6.agoda.net/geo/city/4590/1_4590_02.jpg?ca=6&amp;ce=1&amp;s=1024x&amp;ar=1x1 1024w" src="//pix6.agoda.net/geo/city/4590/1_4590_02.jpg?ca=6&amp;ce=1&amp;s=345x345&amp;ar=1x1" loading="lazy" class="sc-fFubgz sc-bkzZxe  bSwUia" sizes="200px">
+                    <h3 class="top-destination-city-info" style="font-weight: 600; line-height: calc(20.33px); font-size: 16px; margin-top: calc(10.67px); margin-bottom: calc(-1.33px);">Yokohama</h3>
+                    <span class="top-destination-city-info" style="font-weight: 400; line-height: calc(14.98px); font-size: 12px; margin-top: calc(3.02px); margin-bottom: calc(-0.98px);">1,093 chỗ ở</span>
+                </div>
+                <div class="top-destination-city-item">
+                    <img style="width:200px" data-element-name="top-destination-city-image" alt="Seoul" srcset="//pix6.agoda.net/geo/city/14690/0d6f4afc6f404e65092123bead23f8ce.jpg?ce=0&amp;s=16x&amp;ar=1x1 16w, //pix6.agoda.net/geo/city/14690/0d6f4afc6f404e65092123bead23f8ce.jpg?ce=0&amp;s=116x&amp;ar=1x1 116w, //pix6.agoda.net/geo/city/14690/0d6f4afc6f404e65092123bead23f8ce.jpg?ce=0&amp;s=375x&amp;ar=1x1 375w, //pix6.agoda.net/geo/city/14690/0d6f4afc6f404e65092123bead23f8ce.jpg?ce=0&amp;s=600x&amp;ar=1x1 600w, //pix6.agoda.net/geo/city/14690/0d6f4afc6f404e65092123bead23f8ce.jpg?ce=0&amp;s=800x&amp;ar=1x1 800w, //pix6.agoda.net/geo/city/14690/0d6f4afc6f404e65092123bead23f8ce.jpg?ce=0&amp;s=1024x&amp;ar=1x1 1024w" src="//pix6.agoda.net/geo/city/14690/0d6f4afc6f404e65092123bead23f8ce.jpg?ce=0&amp;s=345x345&amp;ar=1x1" loading="lazy" class="sc-fFubgz sc-bkzZxe  bSwUia" sizes="200px">
+                    <h3 class="top-destination-city-info" style="font-weight: 600; line-height: calc(20.33px); font-size: 16px; margin-top: calc(10.67px); margin-bottom: calc(-1.33px);">Seoul</h3>
+                    <span class="top-destination-city-info" style="font-weight: 400; line-height: calc(14.98px); font-size: 12px; margin-top: calc(3.02px); margin-bottom: calc(-0.98px);">1,605 chỗ ở</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="Flight_partnerSection__ABij9 section-bg">
+        <div class="container PartnerSection_section__P2CUK">
+            <div class="SectionHeader_sectionHeader__60CR7">
+                <div class="SectionHeader_title__eE2Rf">
+                    <h4>Đối tác Cùng các <br>Hãng máy bay lớn</h4>
+                    <div>
+                        <span style="box-sizing: border-box; display: inline-block; overflow: hidden; width: initial; height: initial; background: none; opacity: 1; border: 0px; margin: 0px; padding: 0px; position: relative; max-width: 100%;">
+                            <span style="box-sizing: border-box; display: block; width: initial; height: initial; background: none; opacity: 1; border: 0px; margin: 0px; padding: 0px; max-width: 100%;"></span>
+                        </span>
+                    </div>
+                </div>
+                <p class="SectionHeader_description__2ZD1p">
+                    Chúng tôi hợp tác với các hãng máy bay lớn để mang đến cho bạn những chuyến bay an toàn và tiện lợi.
+                </p>
+            </div>
+            <div class="PartnerSection_partnerList__4jUaE">
+                <div class="PartnerSection_img-wrapper__MvPBJ">
+                    <img src="~/Content/Image/flight-partner-0.png" alt="Vietnam Airlines">
+                </div>
+                <div class="PartnerSection_img-wrapper__MvPBJ">
+                    <img src="~/Content/Image/flight-partner-1.png" alt="VietJetAir">
+                </div>
+                <div class="PartnerSection_img-wrapper__MvPBJ">
+                    <img src="~/Content/Image/flight-partner-2.png" alt="Bamboo Airways">
+                </div>
+                <div class="PartnerSection_img-wrapper__MvPBJ">
+                    <img src="~/Content/Image/flight-partner-3.png" alt="Vietravel Airlines">
+                </div>
+                <div class="PartnerSection_img-wrapper__MvPBJ">
+                    <img src="~/Content/Image/flight-partner-4.png" alt="Pacific Airlines">
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="Flight_partnerSection__ABij9 section-bg">
+        <div class="container PartnerSection_section__P2CUK">
+            <div class="SectionHeader_sectionHeader__60CR7">
+                <div class="SectionHeader_title__eE2Rf">
+                    <h4>Đối tác Cùng các <br>Hãng du lịch</h4>
+                    <div>
+                        <span style="box-sizing: border-box; display: inline-block; overflow: hidden; width: initial; height: initial; background: none; opacity: 1; border: 0px; margin: 0px; padding: 0px; position: relative; max-width: 100%;">
+                            <span style="box-sizing: border-box; display: block; width: initial; height: initial; background: none; opacity: 1; border: 0px; margin: 0px; padding: 0px; max-width: 100%;"></span>
+                        </span>
+                    </div>
+                </div>
+                <p class="SectionHeader_description__2ZD1p">
+                    Chúng tôi hợp tác với các khu du lịch lớn để mang đến cho bạn những trải nghiệm du lịch đa dạng
+                </p>
+            </div>
+            <div class="PartnerSection_partnerList__4jUaE">
+                <div class="PartnerSection_img-wrapper__MvPBJ">
+                    <img src="~/Content/Image/vietralvel.png" alt="VietTravel">
+                </div>
+                <div class="PartnerSection_img-wrapper__MvPBJ">
+                    <img src="~/Content/Image/vnbooking.png" alt="Vietnam Booking">
+                </div>
+                <div class="PartnerSection_img-wrapper__MvPBJ">
+                    <img src="~/Content/Image/sgtour.png" alt="SaiGonTourist">
+                </div>
+                <div class="PartnerSection_img-wrapper__MvPBJ">
+                    <img src="~/Content/Image/hbtour.png" alt="HoaBinhTourist">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+        @RenderBody()
+    </div>
+    <script>
+        window.onload = function () {
+            var today = new Date().toISOString().split('T')[0];
+            var departureDateInput = document.getElementById('departureDate');
+            var returnDateInput = document.getElementById('returnDate');
+
+            departureDateInput.setAttribute('min', today);
+            returnDateInput.setAttribute('min', today);
+
+            departureDateInput.value = today;
+            returnDateInput.value = today;
+        };
+
+        // Danh sách các thành phố có sân bay ở Việt Nam
+        var cities = [
+            "Hà Nội",
+            "Hồ Chí Minh",
+            "Đà Nẵng",
+            "Nha Trang",
+            "Phú Quốc",
+            "Hải Phòng",
+            "Vinh",
+            "Cần Thơ",
+            "Huế",
+            "Quy Nhơn",
+            "Đà Lạt",
+            "Chu Lai",
+            "Pleiku",
+            "Buôn Ma Thuột"
+        ];
+
+        $(function () {
+            $("#departure").autocomplete({
+                source: cities
+            });
+            $("#arrival").autocomplete({
+                source: cities
+            });
+        });
+
+        function getQueryParameter(name) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(name);
+        }
+
+        // Hàm để chuyển đổi loại tìm kiếm
+        function toggleSearchType(type) {
+            // Lấy các phần tử của form khác nhau
+            const flightForm = document.getElementById('flightForm');
+            const hotelForm = document.getElementById('hotelForm');
+
+            // Ẩn tất cả form
+            flightForm.style.display = 'none';
+            hotelForm.style.display = 'none';
+
+            // Hiển thị form tương ứng với loại chuyến đi được chọn
+            if (type === 'flight') {
+                flightForm.style.display = 'block';
+            } else if (type === 'hotel') {
+                hotelForm.style.display = 'block';
+            }
+
+            // Thay đổi nút kích hoạt
+            document.querySelectorAll('.trip-type button').forEach(button => {
+                button.classList.remove('active');
+            });
+            document.getElementById(type).classList.add('active');
+        }
+        function redirectToPage(filePath) {
+            window.location.href = filePath;
+        }
+    </script>
+
+</body>
+</html>

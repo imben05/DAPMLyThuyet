@@ -1,0 +1,114 @@
+﻿@model FlightManagement.Models.Aircraft
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="container mt-4">
+        <div class="info-box">
+            <h4 class="text-center text-success">Thêm Mới Máy Bay</h4>
+            <hr />
+
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            <!-- Model Input -->
+            <div class="form-group row">
+                @Html.LabelFor(model => model.model, "Model", htmlAttributes: new { @class = "control-label col-sm-3" })
+                <div class="col-sm-9">
+                    @Html.EditorFor(model => model.model, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.model, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <!-- Capacity Input -->
+            <div class="form-group row">
+                @Html.LabelFor(model => model.capacity, "Sức chứa", htmlAttributes: new { @class = "control-label col-sm-3" })
+                <div class="col-sm-9">
+                    @Html.EditorFor(model => model.capacity, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.capacity, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <!-- Airline Dropdown -->
+            <div class="form-group row">
+                @Html.LabelFor(model => model.airlineID, "Loại Airline", htmlAttributes: new { @class = "control-label col-sm-3" })
+                <div class="col-sm-9">
+                    @Html.DropDownList("airlineID", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.airlineID, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <!-- Submit and Cancel Buttons -->
+            <div class="form-group row text-center">
+                <div class="col-sm-12">
+                    <input type="submit" value="Thêm" class="btn btn-success btn-sm" />
+                    <a class="btn btn-danger btn-sm" href="/Aircrafts/Index">Quay lại</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <style>
+        /* Khung thông tin */
+        .info-box {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            max-width: 600px;
+            margin: 0 auto; /* Căn giữa */
+        }
+
+            /* Tiêu đề */
+            .info-box h4 {
+                color: #28a745;
+                font-size: 1.5rem;
+                font-weight: bold;
+                margin-bottom: 15px;
+            }
+
+        /* Thẻ label cho form */
+        .control-label {
+            font-weight: bold;
+            color: #333;
+        }
+
+        /* Các trường nhập liệu */
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        /* Các ô nhập liệu */
+        .form-control {
+            font-size: 1rem;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+
+        /* Nút Submit và Quay lại */
+        .btn-sm {
+            padding: 6px 12px;
+            font-size: 0.9rem; /* Giảm kích thước nút */
+        }
+
+        .btn-success {
+            margin-right: 10px;
+        }
+
+        /* Thông báo lỗi */
+        .text-danger {
+            font-size: 0.9rem;
+        }
+    </style>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+

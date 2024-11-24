@@ -1,0 +1,42 @@
+﻿@model  IEnumerable<FlightManagement.Models.BookingHotel>
+
+@{
+    ViewBag.Title = "BookHotel";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+    <h2>Đặt Phòng: @Model.NameHotel</h2>
+    <div>
+        <p><strong>Địa chỉ:</strong> @Model.Address</p>
+        <p><strong>Số điện thoại:</strong> @Model.Phone</p>
+        <p><strong>Giá phòng:</strong> @Model.RoomPrice VNĐ</p>
+        <p><strong>Mô tả:</strong> @Model.Decripstion</p>
+    </div>
+
+   <hr />
+
+    <form action="BookHotel" method="post">
+        <!-- Hidden field to send hotel ID to the action -->
+        <input type="hidden" name="hotelId" value="@Model.IdHotel" />
+
+        <div class="form-group">
+            <label for="checkInDate">Ngày nhận phòng</label>
+            <input type="date" id="checkInDate" name="checkInDate" class="form-control" required />
+        </div>
+
+        <div class="form-group">
+            <label for="checkOutDate">Ngày trả phòng</label>
+            <input type="date" id="checkOutDate" name="checkOutDate" class="form-control" required />
+        </div>
+
+        <div class="form-group">
+            <label for="roomCount">Số lượng phòng</label>
+            <input type="number" id="roomCount" name="roomCount" class="form-control" min="1" value="1" required />
+        </div>
+
+        <button type="submit" class="btn btn-primary">Xác nhận đặt phòng</button>
+    </form>
+
+
+
+

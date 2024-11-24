@@ -1,0 +1,149 @@
+﻿@model FlightManagement.Models.CustomerInfo
+
+@{
+    ViewBag.Title = "Nhập Thông Tin Khách Hàng";
+}
+
+<div class="container customer-info-container">
+    <div class="row">
+        <!-- Form thông tin khách hàng -->
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h2>Nhập Thông Tin Khách Hàng</h2>
+                </div>
+                <div class="card-body">
+                    @using (Html.BeginForm("ConfirmBooking", "Booking", FormMethod.Post))
+                    {
+                        @Html.HiddenFor(model => model.BookingID)
+
+                        <div class="form-group">
+                            <label for="FullName">Họ và Tên:</label>
+                            @Html.TextBoxFor(model => model.FullName, new { @class = "form-control", required = "required", placeholder = "Nhập họ và tên" })
+                        </div>
+
+                        <div class="form-group">
+                            <label for="Email">Email:</label>
+                            @Html.TextBoxFor(model => model.Email, new { @class = "form-control", type = "email", required = "required", placeholder = "Nhập email" })
+                        </div>
+
+                        <div class="form-group">
+                            <label for="PhoneNumber">Số Điện Thoại:</label>
+                            @Html.TextBoxFor(model => model.PhoneNumber, new { @class = "form-control", required = "required", placeholder = "Nhập số điện thoại" })
+                        </div>
+
+                        <div class="form-group">
+                            <label for="PaymentMethod">Phương Thức Thanh Toán:</label>
+                            @Html.DropDownList("PaymentMethod", new SelectList(new[] { "MoMo", "Thẻ Tín Dụng", "Thẻ ATM" }), "Chọn Phương Thức", new { @class = "form-control", required = "required" })
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-block">Xác Nhận và Thanh Toán</button>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <!-- Thông tin chuyến bay -->
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h2>Thông Tin Chuyến Bay</h2>
+                </div>
+                <div class="card-body flight-details">
+                    <div class="airline-info">
+                        <img src="@Url.Content(ViewBag.FlightLogo)" alt="@ViewBag.AirlineName" class="airline-logo" />
+                        <h4>@Model. (@ViewBag.FlightCode)</h4>
+                    </div>
+                    <div class="flight-route">
+                        <span>@ViewBag.DepartureCity</span>
+                        <span class="arrow">→</span>
+                        <span>@ViewBag.ArrivalCity</span>
+                    </div>
+                    <div class="flight-time">
+                        <p><strong>Thời gian khởi hành:</strong> @ViewBag.DepartureTime</p>
+                        <p><strong>Thời gian đến:</strong> @ViewBag.ArrivalTime</p>
+                    </div>
+                    <div class="flight-price">
+                        <p><strong>Giá vé:</strong> @String.Format("{0:N0}", ViewBag.FlightPrice) <span class="currency">đ</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .customer-info-container {
+        margin-top: 30px;
+    }
+
+    .card {
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+    }
+
+    .card-header {
+        background-color: #007bff;
+        color: white;
+        text-align: center;
+        padding: 15px;
+        border-radius: 10px 10px 0 0;
+    }
+
+    .card-body {
+        padding: 20px;
+    }
+
+    .form-group label {
+        font-weight: bold;
+    }
+
+    .form-control {
+        height: 45px;
+        border-radius: 5px;
+        padding: 10px;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+        padding: 10px 15px;
+        font-size: 1.1rem;
+        font-weight: bold;
+        width: 100%;
+    }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+
+    .flight-details {
+        text-align: center;
+    }
+
+    .airline-info {
+        margin-bottom: 15px;
+    }
+
+    .airline-logo {
+        max-width: 120px;
+        margin-bottom: 10px;
+    }
+
+    .flight-route {
+        font-size: 1.5rem;
+        margin-bottom: 15px;
+    }
+
+        .flight-route .arrow {
+            font-size: 1.5rem;
+            margin: 0 10px;
+        }
+
+    .flight-time p,
+    .flight-price p {
+        font-size: 1.1rem;
+        margin-bottom: 10px;
+    }
+</style>
